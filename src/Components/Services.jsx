@@ -15,6 +15,7 @@ const TitleVariants = {
     y: 0,
     transition: {
       duration: 1.5,
+      delay: 2.5,
       ease: "easeInOut"
     }
   }

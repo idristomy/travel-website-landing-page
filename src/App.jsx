@@ -9,29 +9,39 @@ import Subscribtion from './Components/Subscirbtion.jsx';
 import Testimonials from './Components/Testimonials.jsx';
 import { motion } from 'motion/react'
 import Logo from '../src/assets/img/Logo.png'
+import { useState, useEffect } from 'react';
 
 const LogoAnimationVariants = {
-  hidden: {
-    opacity:  1,
+   hidden: {
+    opacity: 1,
     y: 0,
   },
   show: {
-    opacity: 0 ,
+    opacity: 1,
     y: "-100vh",
     transition: {
       duration: 0.9,
       delay: 2,
-      ease: "easeInOut"
-    }
-  }
-}
+      ease: "easeOut"
+    },
+  },
+};
 
 
 function App() {
 
+  const [isHidden, seIsHiedden] = useState(true)
+
+  useEffect(() =>{
+    setTimeout(() => {
+      seIsHiedden(false)
+    }, 3000)
+  }, [])
+
   return (
     <div className='relative'>
-      <div  className='absolute flex items-center justify-center  h-[100vh] overflow-hidden w-full z-1'>
+      
+      { isHidden && <div  className='absolute flex items-center justify-center  h-[100vh] overflow-hidden w-full z-1'>
         <motion.div className="absolute -z-1 bg-amber-500 top-0 "
           initial={{
             width: "100%",
@@ -54,7 +64,7 @@ function App() {
           animate= "show"
         />
         
-      </div>
+      </div>}
       <div className="-z-99">
       <Header />
       <Hero />

@@ -15,7 +15,6 @@ const MoveRightVariants = {
             duration: 2,
             delay: 2.5,
             ease: "easeInOut",
-            
         }
     },
     Mobile:{
@@ -96,16 +95,16 @@ useEffect(() => {
                                      enjoy
                                      <img src={Line} alt="" className="absolute md:left-55 md:w-80  lg:w-60 lg:left-40 lg:top-10 xl:left-60 xl:top-15 xl:w-auto -z-10 hidden md:block"/>
                                 </span> 
-                                     and live a new and full life
+                                     and live a new and full life.
                         </p>
                         </div>
                     <p className="text-[#5E6282] text-sm md:text-base">Built Wicket longer admire do barton vanity itself do in it. Preferred to sportsmen it engrossed listening. Park gate sell they west hard for the.</p>
                     <div className="flex gap-5">
                         <button className="bg-orange-400 hover:bg-orange-400/70 text-white py-2 px-4 rounded-lg shadow-orange-400/80 shadow-lg cursor-pointer">
-                            <a href="#">Find out more</a>
+                            <a href="#" >Find out more</a>
                         </button>
                         <button className="inline-flex items-center gap-2 cursor-pointer hover:scale-105">
-                            <IoIosPlayCircle className="text-5xl text-orange-700 "/>
+                            <IoIosPlayCircle className="text-5xl text-orange-700"/>
                             <a href="#" className="text-sm">Play Demo</a>
                         </button>
                     </div>
