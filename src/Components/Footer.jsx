@@ -2,6 +2,23 @@ import { TiSocialFacebook } from "react-icons/ti";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
 import PlayStore from '../assets/img/Play Store.png'
 import GooglePlay from '../assets/img/Google Play.png'
+import { motion } from 'motion/react'
+
+const FooterVariants = {
+    hidden: {
+        y: 30,
+        opacity: 0
+    },
+    show: (i) =>  ({
+        opacity: 1,
+         y: 0 ,
+         transition: {
+            duratio: 0.9,
+            delay: i * 0.3,
+            ease: "linear"
+         }
+    })
+}
 
 
 const Footer = () => {
@@ -75,10 +92,26 @@ const Footer = () => {
 
                     {/* Logo */}
 
-                    <div className="flex flex-col gap-5  xl:col-span-2">
+                    <motion.div className="flex flex-col gap-5  xl:col-span-2"
+                        initial= {{
+                            opacity: 0,
+                            y: 30
+                        }}
+                        whileInView={{
+                            opacity : 1,
+                            y: 0
+                        }}
+                        transition={{
+                            duration: 0.4,
+                            ease: 'linear'
+                        }}
+                        viewport={{
+                            once: true, amount: 0.8
+                        }}
+                    >
                         <h1 className="text-4xl font-semibold ">Jadoo.</h1>
                         <p className="text-sm text-gray-500 font-semibold">Book your trip on minute, get full Control for much longer.</p>
-                    </div>
+                    </motion.div>
 
                     {/* Footer Links */}
 
@@ -87,7 +120,16 @@ const Footer = () => {
                         <div className="grid grid-cols-3  lg:gap-30">
                             {
                                 Object.entries(footerLinks).map(([title, links], index) =>(
-                                    <div key={title} className="flex flex-col gap-5 ">
+                                    <motion.div key={title} className="flex flex-col gap-5 "
+                                        variants={FooterVariants}
+                                        initial= "hidden"
+                                        whileInView= 'show'
+                                        custom={index}
+                                        viewport={{
+                                            once: true,
+                                            amount: 1
+                                        }}
+                                    >
                                         <h5 className="font-bold text-lg">{title}</h5>
                                         <ul>
                                             {
@@ -98,7 +140,7 @@ const Footer = () => {
                                                 ))
                                             }
                                         </ul>
-                                    </div>
+                                    </motion.div>
                                 ))
                             }
                         </div>
@@ -106,18 +148,64 @@ const Footer = () => {
 
                     {/* Social Media Links */}
 
-                    <div className="xl:col-span-2">
+                    <motion.div className="xl:col-span-2"
+                        initial= {{
+                                opacity: 0,
+                                y: 30
+                            }}
+                            whileInView={{
+                                opacity : 1,
+                                y: 0
+                            }}
+                            transition={{
+                                duration: 0.4,
+                                delay: 0.8,
+                                ease: 'linear'
+                            }}
+                            viewport={{
+                                once: true, amount: 0.8
+                            }}
+                    >
                         <div className="flex items-center gap-5">
-                            <TiSocialFacebook className="p-2 size-10  rounded-full shadow-md"/>
+                            <motion.div className="rounded-full shadow-md cursor-pointer"
+                                whileHover={{
+                                    scale: 1.2
+                                }}
+                            >
+                                <TiSocialFacebook className="size-9"/>
+                            </motion.div>
+                            <motion.div className="rounded-full shadow-md cursor-pointer"
+                                whileHover={{
+                                    scale: 1.2
+                                }}
+                            >
                             <FaInstagram className="p-2 size-10 rounded-full shadow-md"/> 
+                            </motion.div>
+                            <motion.div className="rounded-full shadow-md cursor-pointer"
+                                whileHover={{
+                                    scale: 1.2
+                                }}
+                            >
                             <FaTwitter className="p-2 size-10 rounded-full shadow-md"/>
+                                
+                            </motion.div>
                         </div>
                         <h5 className="font-bold text-gray-700 text-lg pt-3 pl-3">Discover our app</h5>
                         <div className="flex gap-2 pt-5">
-                            <img src={PlayStore} alt="" />
-                            <img src={GooglePlay} alt="" />
+                            <motion.img src={PlayStore} alt="" 
+                                className="cursor-pointer"
+                                whileHover={{
+                                    scale: 1.2
+                                }}
+                            />
+                            <motion.img src={GooglePlay} alt="" 
+                                className="cursor-pointer"
+                                whileHover={{
+                                    scale: 1.2
+                                }}
+                            />
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
                 <div className="">

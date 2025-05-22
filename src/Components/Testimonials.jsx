@@ -1,82 +1,196 @@
-import profile from '../assets/img/profile.png'
+import profile from '../assets/img/profile.png';
+import { motion } from 'motion/react';
+import { useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp  } from "react-icons/io";
 
-
-const Testimonials = () =>{
-
-    return(
-
-        <div className='container mx-auto grid lg:grid-cols-2 gap-10 pt-20 md:pt-30 px-4' id='testimonials'>
-            <div>
-                <h1 className="text-lg text-gray-700 font-semibold mb-3">CATEGORY</h1>
-                <h2 className="text-[#181E4B] text-2xl sm:text-4xl lg:text-5xl font-serif font-bold">
-                    What People Say About Us.
-                </h2>
-
-                <div className="flex gap-5 mt-20">
-                    <div className="w-3 h-3 rounded-full bg-[#181E4B]"></div>
-                    <div className="w-3 h-3 rounded-full bg-[#181E4B]/50"></div>
-                    <div className="w-3 h-3 rounded-full bg-[#181E4B]/50"></div>
-                </div>
-            </div>
-            <div>
-                <div className="flex items-center justify-center gap-15 md:gap-20">
-
-                <div className="relative flex items-center justify-center">
-
-                    {/* First testimonial */}
-
-                    <div className='relative'>
-                        <img src={profile} alt="" className='rounded-full w-10 sm:w-15 absolute -top-0 left-0'/>
-                        <div className="w-60 sm:w-100 p-5 shadow-lg shadow-gray-400 rounded-xl bg-white mt-5 ml-5 sm:mt-10 sm:ml-10">
-                            <p className='text-gray-500 text-sm sm:text-base font-medium'>
-                                "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no."
-                            </p>
-                            <div className="mt-5 ">
-                                <h4 className="text-gray-700 font-bold text-md md:text-xl">Mike taylor</h4>
-                                <p className="text-sm text-gray-500 font-semibold">Lahore, Pakistan</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Second testimonial */}
-
-                    
-                    <div className="absolute -z-10 translate-x-10 translate-y-15 scale-95 opacity-80">
-                        <div className='relative'>
-                            <img src={profile} alt="" className='rounded-full w-10 sm:w-15 absolute -top-0 left-0'/>
-                            <div className="w-60 sm:w-100 p-5 shadow-lg shadow-gray-400 rounded-xl bg-white mt-5 ml-5 sm:mt-10 sm:ml-10">
-                                <p className='text-gray-500 text-sm sm:text-base font-medium'>
-                                    "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no."
-                                </p>
-                                <div className="mt-5 ">
-                                    <h4 className="text-gray-700 font-bold text-xl">Mike taylor</h4>
-                                    <p className="text-sm text-gray-500 font-semibold">CEO of red Burron</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="icons flex flex-col gap-5 ">
-                    <button className='cursor-pointer'>
-                        <IoIosArrowUp className='size-5 text-gray-500'/>
-                    </button>
-                    <button className='cursor-pointer'>
-                        <IoIosArrowDown className='size-5'/>
-                    </button>
-
-                </div>
-
-                    
+const TestimonialsVariants = {
+  top: {
+    x: 0,
+    y: 0,
+    scale: 1,
+    opacity: 1,
+    zIndex: 2,
+    transition: {
+      duration: 0.6,
+      ease: "easeInOut",
+    },
+  },
+  bottom: {
+    x: 40,
+    y: 50,
+    scale: 0.85,
+    opacity: 0.6,
+    zIndex: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeInOut",
+    },
+  },
+};
 
 
-
-                </div>
-            </div>
-        </div>
-    )
+const TitleVariants = {
+  hidden: {
+    opacity: 0,
+    x: -50
+  },
+  show: (i) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.5,
+      ease: "easeInOut",
+      delay: i
+    }
+  })
 }
 
+const Testimonials = () => {
+  const [topIndex, setTopIndex] = useState(0);
 
-export default Testimonials
+  const handleNext = () => {
+    setTopIndex((prev) => (prev + 1) % 2);
+  };
+
+  const handlePrev = () =>{
+    setTopIndex((prev) =>
+        prev === 0 ? testimonialData.length - 1 : prev - 1
+    );
+  }
+
+  const testimonialData = [
+    {
+      img: profile,
+      paragraph:
+        "“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”",
+      title: "Mike Taylor",
+      place: "Lahore, Pakistan",
+    },
+    {
+      img: profile,
+      paragraph:
+        "“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”",
+      title: "Chris Thomas",
+      place: "CEO of Red Button",
+    },
+  ];
+
+  return (
+    <div className="container mx-auto py-20 px-4 grid lg:grid-cols-2 gap-10" id='testimonials'>
+      <div>
+                <motion.h1 className="text-lg text-gray-700 font-semibold mb-3"
+                    variants={TitleVariants}
+                    initial= "hidden"
+                    whileInView= "show"
+                    custom={0.5}
+                    viewport={{
+                    once: true,
+                    amount: 0.3
+                    }}
+                >CATEGORY</motion.h1>
+                <motion.h2 className="text-[#181E4B] text-2xl sm:text-4xl lg:text-5xl font-serif font-bold"
+                    variants={TitleVariants}
+                    initial= "hidden"
+                    whileInView= "show"
+                    custom={0}
+                    viewport={{
+                    once: true,
+                    amount: 0.3
+                }}
+                >
+                    What People Say About Us.
+                </motion.h2>
+
+                <motion.div className="flex gap-5 mt-20"
+                    initial={{
+                        x: -100
+                    }}
+                    whileInView={{
+                        x: 0
+                    }}
+                    transition={{
+                        duration: 0.5
+                    }}
+                    viewport={{
+                        once:true,
+                        amount: 0.3
+                    }}
+                >
+                    <div className="w-3 h-3 rounded-full bg-[#181E4B]"></div>
+                    <motion.div className="w-3 h-3 rounded-full bg-[#181E4B]/50"
+                        initial={{
+                            x: -32
+                        }}
+                        whileInView={{
+                            x:0
+                        }}
+                        transition={{
+                        duration: 0.5,
+                        delay: .3
+                       }}
+                        viewport={{
+                        once:true,
+                        amount: 0.3
+                    }}
+
+                    ></motion.div>
+                    <motion.div className="w-3 h-3 rounded-full bg-[#181E4B]/50"
+                        initial={{
+                            x: -63
+                        }}
+                        whileInView={{
+                            x:0
+                        }}
+                        transition={{
+                        duration: 0.5,
+                        delay: .8
+                        }}
+                         viewport={{
+                        once:true,
+                        amount: 0.3
+                    }}
+                    ></motion.div>
+                </motion.div>
+            </div>
+      <div className="relative flex items-center justify-center min-h-[300px]">
+        {testimonialData.map((item, index) => {
+          const isTop = index === topIndex;
+          return (
+            <motion.div
+              key={index}
+              variants={TestimonialsVariants}
+              initial={isTop ? 'bottom' : 'top'}
+              animate={isTop ? 'top' : 'bottom'}
+              className="absolute bg-white shadow-md rounded-xl p-6 w-full max-w-md"
+              
+            >
+              <p className="text-[#5E6282] mb-4">{item.paragraph}</p>
+              <div className="flex items-center gap-3">
+                <img src={item.img} alt="profile" className="rounded-full w-10" />
+                <div>
+                  <h4 className="text-[#5E6282] font-bold">{item.title}</h4>
+                  <h5 className="text-[#5E6282] text-sm">{item.place}</h5>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+
+                {/* Buttons */}
+        <div className="absolute -bottom-10 flex sm:right-0 sm:top-30 sm:flex-col gap-4">
+          <IoIosArrowUp
+            onClick={handlePrev}
+            className="text-3xl text-gray-600 hover:text-gray-900 cursor-pointer"
+          />
+          <IoIosArrowDown
+            onClick={handleNext}
+            className="text-3xl text-gray-600 hover:text-gray-900 cursor-pointer"
+          />
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default Testimonials;

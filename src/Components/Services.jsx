@@ -3,6 +3,38 @@ import AirPlane from '../assets/img/Airplane.png'
 import Mic from '../assets/img/Mic.png'
 import Sitting from '../assets/img/Sitting.png'
 import Stars from '../assets/img/Stars.png'
+import { motion } from 'motion/react'
+
+const TitleVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.5,
+      ease: "easeInOut"
+    }
+  }
+}
+
+const BoxVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40
+  },
+  show: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      delay: i * 0.3, // stagger effect
+      ease: "easeOut"
+    }
+  })
+};
 
 
 const Services = () => {
@@ -40,18 +72,40 @@ const Services = () => {
     <div className="relative pt-10 md:pt-20" id='services'>
       <img src={Stars} alt="" className='absolute hidden lg:block lg:right-5 2xl:right-20 3xl:w-50'/>
       <div className="container mx-auto text-center py-10 px-4">
-        <h1 className="text-lg text-gray-700 font-semibold mb-3">CATEGORY</h1>
-        <h2 className="text-[#181E4B] text-2xl sm:text-4xl lg:text-5xl font-serif font-bold">
+        <motion.h1 className="text-lg text-gray-700 font-semibold mb-3"
+          variants={TitleVariants}
+          initial= "hidden"
+          whileInView= "show"
+          viewport={{
+            once: true,
+            amount: 0.3
+          }}
+
+        >CATEGORY</motion.h1>
+        <motion.h2 className="text-[#181E4B] text-2xl sm:text-4xl lg:text-5xl font-serif font-bold"
+          variants={TitleVariants}
+          initial= "hidden"
+          whileInView= "show"
+          viewport={{
+            once: true,
+            amount: 0.3
+          }}
+        >
           We Offer Best Services
-        </h2>
+        </motion.h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-20 pt-20 relative">
           {/* Decorative background element */}
           <div className="absolute hidden bg-orange-700/70 w-[120px] h-[120px] bottom-0 lg:block lg:translate-x-60 xl:translate-x-70  2xl:translate-x-85 translate-y-10 -z-10 rounded-br-lg rounded-t-3xl"></div>
 
           {Boxes.map((Box, index) => (
-            <div
+            <motion.div
               key={index}
               className={`flex flex-col items-center justify-center bg-white z-10 ${Box.style}`}
+              variants={BoxVariants}
+              initial= "hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+              custom={index}
             >
               <div className="relative h-[100px]">
                 <div className={Box.boxstyle}></div>
@@ -61,7 +115,7 @@ const Services = () => {
               <p className="text-gray-500 w-36 sm:w-40 mt-3 text-sm sm:text-base">
                 {Box.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

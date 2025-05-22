@@ -1,11 +1,34 @@
 import icon from '../assets/img/Subscribe icon.png'
 import Circles from '../assets/img/Circles.png'
 import Stars from '../assets/img/Stars.png'
+import { motion } from 'motion/react'
+
+const BoxVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.5,
+      ease: "easeInOut"
+    }
+  }
+}
 
 const Subscribtion = () => {
 
     return (
-        <div className="relative overflow-hidden">
+        <motion.div className="relative overflow-hidden"
+            variants={BoxVariants}
+            initial="hidden"
+            whileInView= "show"
+            viewport={{
+                once: true, amount: 0.6
+            }}
+        >
             <img src={Stars} alt="" className='absolute bottom-0 right-5 -z-10'/>
             <div className="container mx-auto flex items-center justify-center py-20 px-4">
                 <div className="relative bg-fuchsia-100  text-center w-full py-10 md:py-20 rounded-tl-[80px] rounded-b-xl -z-10">
@@ -18,13 +41,13 @@ const Subscribtion = () => {
                             
                             <input type="email" className="bg-white p-3  lg:w-100 rounded-lg border-none" placeholder="Your Email"  />
                         </form>
-                        <button className="bg-orange-500/90 text-white font-semibold py-3 px-5 rounded-xl cursor-pointer">
+                        <button className="bg-linear-to-r from-[#FF946D] from-0% to-100% to-[#FF7D68]  text-white font-semibold py-3 px-5 rounded-xl cursor-pointer">
                             Subscribe
                         </button>
                     </div>
                 </div>
             </div>      
-        </div>
+        </motion.div>
     )
 }
 
