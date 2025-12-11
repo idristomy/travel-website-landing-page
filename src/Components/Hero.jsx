@@ -32,15 +32,15 @@ const MoveRightVariants = {
 const MoveLeftVariants = {
     hidden: {
         opacity: 0,
-        x: 50
+        x: 500
         },
     show: {
         opacity: 1,
         x: 0,
         transition: {
-            duration: .5,
+            duration: 1.2,
             delay: 2.9,
-            ease: "easeInOut"
+            ease: "easeOut"
         }
     }
 }
@@ -78,7 +78,7 @@ useEffect(() => {
 
 
     return(
-        <div className="relative" id="home">
+        <div className="relative overflow-hidden" id="home">
             <div className="absolute w-50 h-50 rounded-full bg-amber-500/30 blur-3xl -translate-40 top-40 hidden md:block"></div>
             <img src={Decor} className='absolute -z-1 top-0 right-0 h-150 ' alt="" />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 pt-20 container mx-auto px-4 lg:px-20">
