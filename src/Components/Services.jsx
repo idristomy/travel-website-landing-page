@@ -1,7 +1,7 @@
 import Par from '../assets/img/par.png'
 import AirPlane from '../assets/img/Airplane.png'
 import Mic from '../assets/img/Mic.png'
-import Sitting from '../assets/img/Sitting.png'
+import Sitting from '../assets/img/sitting.png'
 import Stars from '../assets/img/Stars.png'
 import { motion } from 'motion/react'
 
