@@ -39,7 +39,7 @@ function App() {
   }, [])
 
   return (
-    <div className='relative'>
+    <div className='relative overflow-hidden'>
       
       { isHidden && <div  className='absolute flex items-center justify-center  h-[100vh] overflow-hidden w-full z-1'>
         <motion.div className="absolute -z-10 bg-amber-500 right-0"
