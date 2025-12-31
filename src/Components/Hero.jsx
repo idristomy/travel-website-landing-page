@@ -1,7 +1,7 @@
 import Traveller from "../assets/img/Traveller 1.png"
 import { IoIosPlayCircle } from "react-icons/io";
 import Decor from '../assets/img/Decore.png'
-import AirPlane from '../assets/img/AirPlane.png'
+import AirPlane from '../assets/img/Airplane.png'
 import Line from '../assets/img/Line Decore.png'
 import { motion, useCycle, useInView } from 'framer-motion'
 import { useEffect, useRef } from "react";
