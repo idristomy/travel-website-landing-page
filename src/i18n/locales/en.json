@@ -1,0 +1,116 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "destinations": "Destinations",
+    "booking": "Booking",
+    "testimonials": "Testimonials",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "hero": {
+    "eyebrow": "Best Destinations around the world",
+    "titlePre": "Travel,",
+    "titleHighlight": "enjoy",
+    "titlePost": "and live a new and full life.",
+    "desc": "Plan and book your perfect trip with expert advice, travel tips, destination information and inspiration from us.",
+    "findOut": "Find out more",
+    "playDemo": "Play Demo"
+  },
+  "services": {
+    "eyebrow": "Category",
+    "title": "We Offer Best Services",
+    "weather": { "title": "Calculated Weather", "desc": "Built Wicket longer admire do barton vanity itself do in it." },
+    "flights": { "title": "Best Flights", "desc": "Engrossed listening. Park gate sell they west hard for the." },
+    "events": { "title": "Local Events", "desc": "Barton vanity itself do in it. Preferred to many it engrossed listening." },
+    "customization": { "title": "Customization", "desc": "We deliver outsourced aviation services for military customers." }
+  },
+  "destinations": {
+    "eyebrow": "Top Selling",
+    "title": "Top Destinations",
+    "daysTrip": "Days Trip",
+    "explore": "Explore",
+    "save": "Save destination",
+    "unsave": "Remove from saved",
+    "rome": { "city": "Rome", "country": "Italy" },
+    "london": { "city": "London", "country": "United Kingdom" },
+    "europe": { "city": "Full Europe", "country": "Multi-country" }
+  },
+  "book": {
+    "eyebrow": "Easy and Fast",
+    "title": "Book Your Next Trip In 3 Easy Steps",
+    "choose": { "title": "Choose Destination", "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus." },
+    "payment": { "title": "Make Payment", "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus." },
+    "reach": { "title": "Reach Airport on Selected Date", "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus." },
+    "tripToGreece": "Trip To Greece",
+    "greeceMeta": "14-29 June | by Robbin Jones",
+    "peopleGoing": "24 People going",
+    "ongoing": "Ongoing",
+    "tripToRome": "Trip to Rome",
+    "completed": "completed"
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "What People Say About Us",
+    "prev": "Previous testimonial",
+    "next": "Next testimonial",
+    "mike": { "quote": "On the windows talking painted pasture yet its express parties use. Sure last upon he same as knew next.", "place": "Lahore, Pakistan" },
+    "chris": { "quote": "On the windows talking painted pasture yet its express parties use. Sure last upon he same as knew next.", "place": "CEO of Red Button" }
+  },
+  "subscription": {
+    "text": "Subscribe to get information, latest news and other interesting offers about Jadoo",
+    "emailLabel": "Email address",
+    "placeholder": "Your Email",
+    "button": "Subscribe"
+  },
+  "footer": {
+    "tagline": "Book your trip in minute, get full control for much longer.",
+    "company": "Company",
+    "contact": "Contact",
+    "more": "More",
+    "about": "About",
+    "careers": "Careers",
+    "mobile": "Mobile",
+    "help": "Help/FAQ",
+    "press": "Press",
+    "affiliates": "Affiliates",
+    "airlineFees": "Airline fees",
+    "airline": "Airline",
+    "lowFare": "Low fare tips",
+    "discover": "Discover our app",
+    "rights": "All rights reserved @jadoo.co"
+  },
+  "auth": {
+    "backHome": "Back to home",
+    "or": "or continue with",
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to continue planning your next adventure.",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "remember": "Remember me",
+      "forgot": "Forgot password?",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Join Jadoo and start exploring the world today.",
+      "name": "Full name",
+      "namePlaceholder": "Jane Traveller",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirm": "Confirm password",
+      "confirmPlaceholder": "Re-enter your password",
+      "terms": "I agree to the Terms of Service and Privacy Policy",
+      "submit": "Create Account",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    }
+  }
+}

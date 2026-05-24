@@ -2,6 +2,7 @@ import icon from '../assets/img/Subscribe icon.png';
 import Circles from '../assets/img/Circles.png';
 import Stars from '../assets/img/Stars.png';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 const BoxVariants = {
   hidden: {
@@ -19,6 +20,7 @@ const BoxVariants = {
 };
 
 const Subscribtion = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       className="relative overflow-hidden"
@@ -52,27 +54,30 @@ const Subscribtion = () => {
           />
 
           {/* Heading */}
-          <h1 className="text-xl lg:text-3xl md:text-2xl font-semibold text-gray-500 mx-auto lg:w-4/5 z-20 relative">
-            Subscribe to get information, latest news and other interesting offers about Jadoo
-          </h1>
+          <h2 className="text-xl lg:text-3xl md:text-2xl font-semibold text-gray-700 mx-auto lg:w-4/5 z-20 relative">
+            {t('subscription.text')}
+          </h2>
 
           {/* Form */}
           <form
             className="flex flex-col md:flex-row items-center justify-center gap-5 pt-10 md:pt-20 z-20 relative"
-            
+            onSubmit={(e) => e.preventDefault()}
           >
+            <label htmlFor="newsletter-email" className="sr-only">{t('subscription.emailLabel')}</label>
             <input
+              id="newsletter-email"
               type="email"
               name="email"
-              className="bg-white p-3 w-[250px] md:w-[300px] rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-300"
-              placeholder="Your Email"
+              autoComplete="email"
+              className="bg-white p-3 w-[250px] md:w-[300px] rounded-lg border border-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400"
+              placeholder={t('subscription.placeholder')}
               required
             />
             <button
               type="submit"
-              className="bg-gradient-to-r from-[#FF946D] to-[#FF7D68] text-white font-semibold py-3 px-5 rounded-xl hover:opacity-90 transition-opacity duration-300 cursor-pointer"
+              className="bg-gradient-to-r from-[#FF946D] to-[#FF7D68] text-white font-semibold py-3 px-5 rounded-xl hover:opacity-90 transition-opacity duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2"
             >
-              Subscribe
+              {t('subscription.button')}
             </button>
           </form>
         </div>

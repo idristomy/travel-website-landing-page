@@ -1,0 +1,116 @@
+{
+  "nav": {
+    "home": "首页",
+    "services": "服务",
+    "destinations": "目的地",
+    "booking": "预订",
+    "testimonials": "客户评价",
+    "login": "登录",
+    "signup": "注册"
+  },
+  "hero": {
+    "eyebrow": "全球最佳目的地",
+    "titlePre": "去旅行，",
+    "titleHighlight": "尽情享受",
+    "titlePost": "开启全新而充实的生活。",
+    "desc": "在专家建议、旅行贴士、目的地资讯与灵感的帮助下，规划并预订你的完美旅程。",
+    "findOut": "了解更多",
+    "playDemo": "观看演示"
+  },
+  "services": {
+    "eyebrow": "类别",
+    "title": "我们提供最佳服务",
+    "weather": { "title": "天气预测", "desc": "提供精准的天气信息，助你自信地规划行程。" },
+    "flights": { "title": "优选航班", "desc": "为你精选价格与时间最合适的航班。" },
+    "events": { "title": "本地活动", "desc": "发现目的地精彩的当地活动与体验。" },
+    "customization": { "title": "个性定制", "desc": "为你量身打造符合需求与喜好的旅行体验。" }
+  },
+  "destinations": {
+    "eyebrow": "热销推荐",
+    "title": "热门目的地",
+    "daysTrip": "天行程",
+    "explore": "探索",
+    "save": "收藏目的地",
+    "unsave": "取消收藏",
+    "rome": { "city": "罗马", "country": "意大利" },
+    "london": { "city": "伦敦", "country": "英国" },
+    "europe": { "city": "全欧洲", "country": "多国" }
+  },
+  "book": {
+    "eyebrow": "简单快捷",
+    "title": "三个简单步骤预订你的下一趟旅程",
+    "choose": { "title": "选择目的地", "desc": "从全球数百个目的地中，挑选最适合你下一趟旅程的那一个。" },
+    "payment": { "title": "完成支付", "desc": "通过多种安全可靠的支付方式，轻松完成付款。" },
+    "reach": { "title": "按时抵达机场", "desc": "领取你的机票与所有行程详情，轻松开启旅程。" },
+    "tripToGreece": "希腊之旅",
+    "greeceMeta": "6月14-29日 | 由 Robbin Jones 带队",
+    "peopleGoing": "24 人同行",
+    "ongoing": "进行中",
+    "tripToRome": "罗马之旅",
+    "completed": "已完成"
+  },
+  "testimonials": {
+    "eyebrow": "客户评价",
+    "title": "客户对我们的评价",
+    "prev": "上一条评价",
+    "next": "下一条评价",
+    "mike": { "quote": "从头到尾都是一次美妙的旅行体验，一切都安排得井井有条，我一定会再次预订。", "place": "巴基斯坦，拉合尔" },
+    "chris": { "quote": "从头到尾都是一次美妙的旅行体验，一切都安排得井井有条，我一定会再次预订。", "place": "Red Button 首席执行官" }
+  },
+  "subscription": {
+    "text": "订阅以获取 Jadoo 的资讯、最新动态及其他精彩优惠",
+    "emailLabel": "电子邮箱",
+    "placeholder": "你的邮箱",
+    "button": "订阅"
+  },
+  "footer": {
+    "tagline": "一分钟预订行程，长久尽在掌控。",
+    "company": "公司",
+    "contact": "联系我们",
+    "more": "更多",
+    "about": "关于我们",
+    "careers": "招聘",
+    "mobile": "手机应用",
+    "help": "帮助/常见问题",
+    "press": "媒体报道",
+    "affiliates": "合作伙伴",
+    "airlineFees": "航空费用",
+    "airline": "航空公司",
+    "lowFare": "低价贴士",
+    "discover": "下载我们的应用",
+    "rights": "版权所有 @jadoo.co"
+  },
+  "auth": {
+    "backHome": "返回首页",
+    "or": "或使用以下方式继续",
+    "login": {
+      "title": "欢迎回来",
+      "subtitle": "登录以继续规划你的下一场冒险。",
+      "email": "电子邮箱",
+      "emailPlaceholder": "you@example.com",
+      "password": "密码",
+      "passwordPlaceholder": "请输入密码",
+      "remember": "记住我",
+      "forgot": "忘记密码？",
+      "submit": "登录",
+      "noAccount": "还没有账户？",
+      "signupLink": "注册"
+    },
+    "signup": {
+      "title": "创建你的账户",
+      "subtitle": "加入 Jadoo，今天就开始探索世界。",
+      "name": "全名",
+      "namePlaceholder": "张三",
+      "email": "电子邮箱",
+      "emailPlaceholder": "you@example.com",
+      "password": "密码",
+      "passwordPlaceholder": "创建密码",
+      "confirm": "确认密码",
+      "confirmPlaceholder": "请再次输入密码",
+      "terms": "我同意服务条款与隐私政策",
+      "submit": "创建账户",
+      "haveAccount": "已经有账户？",
+      "loginLink": "登录"
+    }
+  }
+}

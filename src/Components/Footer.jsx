@@ -3,6 +3,7 @@ import { FaTwitter, FaInstagram } from "react-icons/fa";
 import PlayStore from '../assets/img/Play Store.png'
 import GooglePlay from '../assets/img/Google Play.png'
 import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 
 const FooterVariants = {
     hidden: {
@@ -13,79 +14,27 @@ const FooterVariants = {
         opacity: 1,
          y: 0 ,
          transition: {
-            duratio: 0.9,
-            delay: i * 0.3,
-            ease: "linear"
+            duration: 0.5,
+            delay: i * 0.2,
+            ease: "easeOut"
          }
     })
 }
 
 
 const Footer = () => {
-    
-    const footerLinks = {
-    
-        Company:[
-                {
-                    name:"About",
-                    href: '/'
-                },
-                {
-                    name:"Careers",
-                    href: '/'
-                },
-                {
-                    name:"Mobile",
-                    href: '/'
-                }
-            ],
-        
-        Conact: [
-            {
-                name: "Help/FAQ",
-                href: "/"
-            },
-            {
-    
-                name: "Press",
-                href: "/"
-            },
-            {
-                name: "Affilates",
-                href: "/"   
-            }
-        ],
-        
-            More : [
-        
-                {
-                    name: "Airlinefees",
-                    href:"/"
-                },
-                {
-                    name:"Airline",
-                    href: "/"
-                },
-                {
-                    name:"Low fare tips",
-                    href: "/"   
-        
-                }
-            ]
-        }
-        
-        
-                
-        
-                
-            
-    
+    const { t } = useTranslation()
+
+    const footerColumns = [
+        { title: 'company', links: ['about', 'careers', 'mobile'] },
+        { title: 'contact', links: ['help', 'press', 'affiliates'] },
+        { title: 'more', links: ['airlineFees', 'airline', 'lowFare'] },
+    ]
 
     return(
         
         <footer className="relative overflow-hidden">
 
-            <div className="absolute w-50 h-50 rounded-full bg-amber-500/40 blur-3xl right-0 bottom-0 translate-20"></div>
             <div className="container mx-auto py-10 px-4 lg:px-0">
 
                 <div className="grid grid-cols-1  xl:grid-cols-10 gap-10">
@@ -109,8 +58,8 @@ const Footer = () => {
                             once: true, amount: 0.8
                         }}
                     >
-                        <h1 className="text-4xl font-semibold ">Jadoo.</h1>
-                        <p className="text-sm text-gray-500 font-semibold">Book your trip on minute, get full Control for much longer.</p>
+                        <p dir="ltr" className="text-4xl font-semibold w-max">Jadoo.</p>
+                        <p className="text-sm text-gray-500 font-semibold">{t('footer.tagline')}</p>
                     </motion.div>
 
                     {/* Footer Links */}
@@ -119,8 +68,8 @@ const Footer = () => {
 
                         <div className="grid grid-cols-3  lg:gap-30">
                             {
-                                Object.entries(footerLinks).map(([title, links], index) =>(
-                                    <motion.div key={title} className="flex flex-col gap-5 "
+                                footerColumns.map((col, index) =>(
+                                    <motion.div key={col.title} className="flex flex-col gap-5 "
                                         variants={FooterVariants}
                                         initial= "hidden"
                                         whileInView= 'show'
@@ -130,12 +79,12 @@ const Footer = () => {
                                             amount: 1
                                         }}
                                     >
-                                        <h5 className="font-bold text-lg">{title}</h5>
-                                        <ul>
+                                        <h5 className="font-bold text-lg">{t(`footer.${col.title}`)}</h5>
+                                        <ul className="space-y-2">
                                             {
-                                                links.map((link, index) =>(
-                                                    <li key={index}>
-                                                        <a href={link.href} className="text-sm text-gray-500 font-semibold">{link.name}</a>
+                                                col.links.map((link) =>(
+                                                    <li key={link}>
+                                                        <a href="#" className="text-sm text-gray-500 font-semibold hover:text-orange-500 transition-colors">{t(`footer.${link}`)}</a>
                                                     </li>
                                                 ))
                                             }
@@ -167,30 +116,23 @@ const Footer = () => {
                             }}
                     >
                         <div className="flex items-center gap-5">
-                            <motion.div className="rounded-full shadow-md cursor-pointer"
-                                whileHover={{
-                                    scale: 1.2
-                                }}
+                            <motion.a href="#" aria-label="Facebook" className="rounded-full shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                                whileHover={{ scale: 1.2 }}
                             >
                                 <TiSocialFacebook className="size-9"/>
-                            </motion.div>
-                            <motion.div className="rounded-full shadow-md cursor-pointer"
-                                whileHover={{
-                                    scale: 1.2
-                                }}
+                            </motion.a>
+                            <motion.a href="#" aria-label="Instagram" className="rounded-full shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                                whileHover={{ scale: 1.2 }}
                             >
-                            <FaInstagram className="p-2 size-10 rounded-full shadow-md"/> 
-                            </motion.div>
-                            <motion.div className="rounded-full shadow-md cursor-pointer"
-                                whileHover={{
-                                    scale: 1.2
-                                }}
+                                <FaInstagram className="p-2 size-10 rounded-full shadow-md"/>
+                            </motion.a>
+                            <motion.a href="#" aria-label="Twitter" className="rounded-full shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                                whileHover={{ scale: 1.2 }}
                             >
-                            <FaTwitter className="p-2 size-10 rounded-full shadow-md"/>
-                                
-                            </motion.div>
+                                <FaTwitter className="p-2 size-10 rounded-full shadow-md"/>
+                            </motion.a>
                         </div>
-                        <h5 className="font-bold text-gray-700 text-lg pt-3 pl-3">Discover our app</h5>
+                        <h5 className="font-bold text-gray-700 text-lg pt-3 pl-3">{t('footer.discover')}</h5>
                         <div className="flex gap-2 pt-5">
                             <motion.img src={PlayStore} alt="" 
                                 className="cursor-pointer"
@@ -211,7 +153,7 @@ const Footer = () => {
                 <div className="">
 
                     <div className="mt-5 pt-5 flex justify-center items-center border-t border-gray-300">
-                        <p>All right reserved@jadoo.co </p>
+                        <p>{t('footer.rights')}</p>
                     </div>
                 </div>
             </div>
