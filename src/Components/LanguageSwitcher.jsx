@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Globe } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Check, ChevronDown } from 'lucide-react'
 import { LANGUAGES } from '../i18n/config'
 
 export default function LanguageSwitcher({ up = false }) {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   const navigate = useNavigate()
@@ -13,58 +15,71 @@ export default function LanguageSwitcher({ up = false }) {
   const current = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0]
 
   useEffect(() => {
+    if (!open) return
     const onClick = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false)
     }
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
     document.addEventListener('mousedown', onClick)
-    return () => document.removeEventListener('mousedown', onClick)
-  }, [])
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
 
   const switchTo = (code) => {
     const segments = location.pathname.split('/')
     segments[1] = code
-    navigate(segments.join('/') || `/${code}`)
+    navigate((segments.join('/') || `/${code}`) + location.hash)
     setOpen(false)
   }
 
   return (
     <div className="relative" ref={ref}>
-      <motion.button
+      <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
-        aria-label="Select language"
+        aria-label={`${t('nav.language')}: ${current.name}`}
         aria-expanded={open}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-amber-400 hover:bg-amber-50 text-sm font-medium transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+        aria-haspopup="true"
+        className="press flex h-11 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-white px-4 text-[14px] font-semibold text-navy hover:border-navy/40"
       >
-        <Globe className="w-4 h-4 text-amber-600" />
-        <span className="text-gray-700">{current.label}</span>
-      </motion.button>
+        {current.label}
+        <ChevronDown
+          aria-hidden="true"
+          className={`size-3.5 text-slate transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
 
       <AnimatePresence>
         {open && (
           <motion.ul
-            className={`absolute end-0 w-40 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 ${up ? 'bottom-full mb-2' : 'mt-2'}`}
-            initial={{ opacity: 0, scale: 0.95, y: up ? 10 : -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: up ? 10 : -10 }}
-            transition={{ duration: 0.18 }}
+            className={`absolute end-0 z-50 w-48 overflow-hidden rounded-2xl border border-line bg-white p-1.5 shadow-[0_24px_48px_-20px_rgba(24,30,75,0.35)] ${
+              up ? 'bottom-full mb-2 origin-bottom-right rtl:origin-bottom-left' : 'mt-2 origin-top-right rtl:origin-top-left'
+            }`}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.1 } }}
+            transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
           >
-            {LANGUAGES.map((lang) => (
-              <li key={lang.code}>
-                <button
-                  onClick={() => switchTo(lang.code)}
-                  className={`w-full px-4 py-3 text-start text-sm flex items-center justify-between transition-colors cursor-pointer ${
-                    current.code === lang.code
-                      ? 'bg-amber-50 text-amber-600 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <span>{lang.name}</span>
-                  <span className="text-xs font-semibold uppercase">{lang.code}</span>
-                </button>
-              </li>
-            ))}
+            {LANGUAGES.map((lang) => {
+              const active = current.code === lang.code
+              return (
+                <li key={lang.code}>
+                  <button
+                    type="button"
+                    lang={lang.code}
+                    onClick={() => switchTo(lang.code)}
+                    aria-current={active ? 'true' : undefined}
+                    className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-3.5 py-2.5 text-start text-[15px] font-medium hover:bg-cream ${active ? 'text-brand' : 'text-navy'}`}
+                  >
+                    {lang.name}
+                    {active && <Check aria-hidden="true" className="size-4" />}
+                  </button>
+                </li>
+              )
+            })}
           </motion.ul>
         )}
       </AnimatePresence>

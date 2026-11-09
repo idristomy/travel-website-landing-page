@@ -26,3 +26,8 @@ dist-ssr
 # Local AI assistant tooling
 CLAUDE.md
 .claude/
+.impeccable/
+.taste-skill/
+.playwright-mcp/
+skills-lock.json
+PRODUCT.md

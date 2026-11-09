@@ -1,140 +1,200 @@
-import { useState, useEffect } from "react"
-import { HiMenuAlt3, HiX } from "react-icons/hi"
-import { Link as ScrollLink } from 'react-scroll'
+import { useEffect, useState } from 'react'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useTranslation } from 'react-i18next'
+import { ArrowRight, Menu, X } from 'lucide-react'
 import LanguageSwitcher from './LanguageSwitcher.jsx'
+import Wordmark from './Wordmark.jsx'
+import { scrollToId } from '../lib/scrollTo.js'
 
-const navVariants = {
-    hidden: { opacity: 0, y: -20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] } }
+const EASE_OUT = [0.23, 1, 0.32, 1]
+const SECTIONS = ['destinations', 'services', 'book', 'testimonials']
+
+// Tracks which section sits under the masthead so the nav pill can follow it
+function useActiveSection() {
+  const [active, setActive] = useState(null)
+  useEffect(() => {
+    const onScroll = () => {
+      let current = null
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= 140) current = id
+      }
+      setActive(current)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return active
 }
 
-const Header = () => {
-    const { t } = useTranslation()
-    const { locale } = useParams()
-    const [isOpen, setIsOpen] = useState(false)
-    const [scrolled, setScrolled] = useState(false)
+const Header = ({ intro }) => {
+  const { t } = useTranslation()
+  const { locale } = useParams()
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const active = useActiveSection()
 
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50)
-        window.addEventListener("scroll", handleScroll)
-        handleScroll()
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+  const navLinks = SECTIONS.map((id) => ({ to: id, label: t(`nav.${id === 'book' ? 'book' : id}`) }))
 
-    const navLinks = [
-        { link: 'home', label: t('nav.home') },
-        { link: 'services', label: t('nav.services') },
-        { link: 'destinations', label: t('nav.destinations') },
-        { link: 'book', label: t('nav.booking') },
-        { link: 'testimonials', label: t('nav.testimonials') },
-    ]
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    return (
-        <motion.nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white/80 backdrop-blur-md shadow-md'
-            }`}
-            variants={navVariants}
-            initial="hidden"
-            animate="show"
-        >
-            <div className="w-full container mx-auto flex justify-between items-center px-4 lg:px-20 lg:h-20 h-16">
-                <ScrollLink to="home" smooth duration={500} className="cursor-pointer text-2xl lg:text-3xl font-bold text-[#181E4B]">
-                    <span dir="ltr">Jadoo<span className="text-orange-500">.</span></span>
-                </ScrollLink>
+  useEffect(() => {
+    if (!isOpen) return
+    const onKey = (e) => e.key === 'Escape' && setIsOpen(false)
+    document.documentElement.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.documentElement.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [isOpen])
 
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label={isOpen ? "Close menu" : "Open menu"}
-                    aria-expanded={isOpen}
-                    className='md:hidden p-2.5 transition duration-300 hover:bg-amber-50 rounded-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500'
-                >
-                    {isOpen ? <HiX className="size-7 text-amber-600" /> : <HiMenuAlt3 className="size-7 text-gray-700" />}
-                </button>
+  const go = (id) => (e) => {
+    e.preventDefault()
+    setIsOpen(false)
+    setTimeout(() => scrollToId(id, 0), 0)
+  }
 
-                <div className="hidden md:flex md:gap-6 lg:gap-10 items-center">
-                    {navLinks.map((navLink) => (
-                        <ScrollLink
-                            key={navLink.link}
-                            to={navLink.link}
-                            smooth
-                            spy
-                            duration={500}
-                            activeClass="text-orange-600"
-                            className="relative text-sm lg:text-base font-medium cursor-pointer text-gray-600 hover:text-orange-500 transition-colors duration-300"
-                        >
-                            {navLink.label}
-                        </ScrollLink>
-                    ))}
-                </div>
+  return (
+    <motion.header
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
+        scrolled || isOpen ? 'bg-white/85 shadow-[0_1px_0_0_var(--color-line)] backdrop-blur-xl' : 'bg-transparent'
+      }`}
+      initial={{ opacity: 0, y: -12 }}
+      animate={intro ? { opacity: 0, y: -12 } : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: EASE_OUT, delay: intro ? 0 : 0.1 }}
+    >
+      <a
+        href="#main"
+        className="absolute start-4 top-3 z-[70] -translate-y-24 rounded-full bg-navy px-4 py-2 text-sm text-white focus:translate-y-0"
+      >
+        {t('nav.skip')}
+      </a>
 
-                <div className="hidden md:flex gap-3 lg:gap-5 items-center">
-                    <RouterLink
-                        to={`/${locale}/login`}
-                        className="text-sm font-medium text-gray-600 hover:text-orange-600 transition-colors duration-300"
+      <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
+        <a href="#home" onClick={go('home')} aria-label="Jadoo" className="text-navy">
+          <Wordmark className="text-[30px]" />
+        </a>
+
+        <nav aria-label="Primary" className="hidden rounded-full border border-line bg-white/70 p-1 backdrop-blur lg:block">
+          <ul className="flex items-center">
+            {navLinks.map((link) => {
+              const isActive = active === link.to
+              return (
+                <li key={link.to} className="relative">
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full bg-navy"
+                      transition={{ type: 'spring', duration: 0.45, bounce: 0.15 }}
+                    />
+                  )}
+                  <a
+                    href={`#${link.to}`}
+                    onClick={go(link.to)}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`relative block rounded-full px-5 py-2.5 text-[15px] font-medium transition-colors ${
+                      isActive ? 'text-white' : 'text-slate hover:text-navy'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+
+        <div className="hidden items-center gap-3 lg:flex">
+          <RouterLink to={`/${locale}/login`} className="rounded-full px-4 py-2.5 text-[15px] font-semibold text-navy transition-colors hover:text-brand">
+            {t('nav.login')}
+          </RouterLink>
+          <RouterLink
+            to={`/${locale}/signup`}
+            className="press group inline-flex h-11 items-center gap-2 rounded-full bg-navy ps-5 pe-4 text-[15px] font-semibold text-white hover:bg-brand"
+          >
+            {t('nav.signup')}
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
+          </RouterLink>
+          <LanguageSwitcher />
+        </div>
+
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={() => setIsOpen((o) => !o)}
+            aria-label={isOpen ? t('nav.close') : t('nav.menu')}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className="press grid size-11 cursor-pointer place-items-center rounded-full bg-navy text-white"
+          >
+            {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            id="mobile-menu"
+            className="fixed inset-x-0 top-20 bottom-0 flex flex-col justify-between overflow-y-auto bg-white px-5 pt-4 pb-8 sm:px-8 lg:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.25, ease: EASE_OUT }}
+          >
+            <nav aria-label="Primary">
+              <ul>
+                {navLinks.map((link, i) => (
+                  <motion.li
+                    key={link.to}
+                    className="border-b border-line"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.04 + i * 0.04, ease: EASE_OUT }}
+                  >
+                    <a
+                      href={`#${link.to}`}
+                      onClick={go(link.to)}
+                      className="flex items-center justify-between py-5 text-2xl font-bold tracking-tight text-navy"
                     >
-                        {t('nav.login')}
-                    </RouterLink>
+                      {link.label}
+                      <ArrowRight className="size-5 text-brand rtl:-scale-x-100" />
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
 
-                    <RouterLink
-                        to={`/${locale}/signup`}
-                        className="px-4 lg:px-6 py-2.5 text-sm font-semibold rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-orange-600 text-white shadow-md hover:shadow-lg transition-all duration-300"
-                    >
-                        {t('nav.signup')}
-                    </RouterLink>
-
-                    <LanguageSwitcher />
-                </div>
+            <div className="mt-10 grid grid-cols-2 gap-3">
+              <RouterLink
+                to={`/${locale}/login`}
+                onClick={() => setIsOpen(false)}
+                className="press inline-flex h-12 items-center justify-center rounded-full border border-navy/20 text-base font-semibold text-navy"
+              >
+                {t('nav.login')}
+              </RouterLink>
+              <RouterLink
+                to={`/${locale}/signup`}
+                onClick={() => setIsOpen(false)}
+                className="press inline-flex h-12 items-center justify-center rounded-full bg-brand text-base font-semibold text-white"
+              >
+                {t('nav.signup')}
+              </RouterLink>
             </div>
-
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        className="bg-white/95 backdrop-blur-xl mx-auto px-4 md:hidden shadow-lg"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                        <div className="container space-y-1 w-full font-medium py-4 border-t border-gray-200">
-                            {navLinks.map((navLink) => (
-                                <ScrollLink
-                                    key={navLink.link}
-                                    to={navLink.link}
-                                    smooth
-                                    spy
-                                    duration={500}
-                                    onClick={() => setIsOpen(false)}
-                                    className="block py-3 px-4 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
-                                >
-                                    {navLink.label}
-                                </ScrollLink>
-                            ))}
-                        </div>
-
-                        <div className="flex gap-3 items-center justify-between py-4 border-t border-gray-200">
-                            <div className="flex gap-3 items-center">
-                                <RouterLink to={`/${locale}/login`} onClick={() => setIsOpen(false)} className="text-sm font-medium text-gray-600">
-                                    {t('nav.login')}
-                                </RouterLink>
-                                <RouterLink
-                                    to={`/${locale}/signup`}
-                                    onClick={() => setIsOpen(false)}
-                                    className="px-4 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white"
-                                >
-                                    {t('nav.signup')}
-                                </RouterLink>
-                            </div>
-                            <LanguageSwitcher up />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.nav>
-    )
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
+  )
 }
 
 export default Header

@@ -1,116 +1,204 @@
 {
+  "meta": {
+    "title": "Jadoo — Travel, enjoy and live a new and full life"
+  },
   "nav": {
-    "home": "Home",
-    "services": "Services",
+    "skip": "Skip to content",
     "destinations": "Destinations",
-    "booking": "Booking",
-    "testimonials": "Testimonials",
-    "login": "Login",
-    "signup": "Sign Up"
+    "services": "What we plan",
+    "book": "How it works",
+    "testimonials": "Travellers",
+    "login": "Log in",
+    "signup": "Sign up",
+    "menu": "Open menu",
+    "close": "Close menu",
+    "language": "Change language"
+  },
+  "intro": {
+    "skip": "Skip intro",
+    "line": "Small-group trips, planned by locals"
   },
   "hero": {
-    "eyebrow": "Best Destinations around the world",
+    "eyebrow": "Best destinations around the world",
     "titlePre": "Travel,",
     "titleHighlight": "enjoy",
     "titlePost": "and live a new and full life.",
     "desc": "Plan and book your perfect trip with expert advice, travel tips, destination information and inspiration from us.",
     "findOut": "Find out more",
-    "playDemo": "Play Demo"
+    "playDemo": "Play demo",
+    "index": "Choose a city",
+    "finder": {
+      "label": "Find a trip",
+      "where": "Destination",
+      "when": "Date",
+      "who": "Travellers",
+      "anywhere": "Anywhere",
+      "submit": "Search",
+      "fewer": "Fewer travellers",
+      "more": "More travellers"
+    },
+    "nextTrip": "Next departure",
+    "going": "24 travellers going",
+    "rating": "Loved by travellers"
   },
-  "services": {
-    "eyebrow": "Category",
-    "title": "We Offer Best Services",
-    "weather": { "title": "Calculated Weather", "desc": "Built Wicket longer admire do barton vanity itself do in it." },
-    "flights": { "title": "Best Flights", "desc": "Engrossed listening. Park gate sell they west hard for the." },
-    "events": { "title": "Local Events", "desc": "Barton vanity itself do in it. Preferred to many it engrossed listening." },
-    "customization": { "title": "Customization", "desc": "We deliver outsourced aviation services for military customers." }
+  "cities": {
+    "rome": {
+      "name": "Rome",
+      "country": "Italy",
+      "blurb": "Nine days between Trastevere, Testaccio and a family farm in the Lazio hills."
+    },
+    "istanbul": {
+      "name": "Istanbul",
+      "country": "Türkiye",
+      "blurb": "Ferries before breakfast, the spice market after lunch, and both shores of the Bosphorus."
+    },
+    "lisbon": {
+      "name": "Lisbon",
+      "country": "Portugal",
+      "blurb": "Tram 28 at first light, tiled courtyards in Alfama, and a slow day out to Sintra."
+    },
+    "kyoto": {
+      "name": "Kyoto",
+      "country": "Japan",
+      "blurb": "Temple mornings, quiet ryokan nights, and a day on foot along the old post road."
+    }
   },
   "destinations": {
-    "eyebrow": "Top Selling",
-    "title": "Top Destinations",
-    "daysTrip": "Days Trip",
-    "explore": "Explore",
-    "save": "Save destination",
-    "unsave": "Remove from saved",
-    "rome": { "city": "Rome", "country": "Italy" },
-    "london": { "city": "London", "country": "United Kingdom" },
-    "europe": { "city": "Full Europe", "country": "Multi-country" }
+    "title": "Four cities, known street by street",
+    "intro": "Each trip is small, slow and written for the season you travel in.",
+    "days": "{{count}} days",
+    "group": "groups of {{count}}",
+    "from": "from {{price}}",
+    "view": "Plan this trip",
+    "save": "Save {{city}}",
+    "unsave": "Remove {{city}} from saved",
+    "picked": "Your pick",
+    "eyebrow": "Top Selling"
+  },
+  "services": {
+    "title": "What we take care of",
+    "intro": "You bring the curiosity. We handle the parts that usually eat a holiday.",
+    "flights": {
+      "title": "Flights that make sense",
+      "desc": "Direct where we can, sensible connections where we can’t, and seats chosen before you ask."
+    },
+    "rooms": {
+      "title": "Rooms with a reason",
+      "desc": "Small hotels and guesthouses we have slept in ourselves, close to what you came to see."
+    },
+    "hosts": {
+      "title": "Local hosts",
+      "desc": "A historian in Rome, a ferry captain’s son in Istanbul: people who show you their city, not a script."
+    },
+    "flex": {
+      "title": "A plan that bends",
+      "desc": "Free days are built in. Change your mind on day three and we change the plan with you."
+    },
+    "eyebrow": "Category"
   },
   "book": {
+    "title": "How a trip comes together",
+    "choose": {
+      "title": "Tell us roughly where and when",
+      "desc": "Pick a city and a month. Rough dates are fine; we ask the rest in one short call."
+    },
+    "draft": {
+      "title": "Read a day-by-day draft",
+      "desc": "Within two working days you receive a written itinerary with rooms, guides and prices."
+    },
+    "deposit": {
+      "title": "Pay a deposit, then pack",
+      "desc": "A deposit holds your place. The balance is due thirty days before you fly."
+    },
+    "doc": {
+      "title": "Rome, nine days",
+      "meta": "Draft 2, for Amira and Tom",
+      "d1": "Arrive at Fiumicino. Dinner in Trastevere at eight.",
+      "d2": "Testaccio market with Giulia, lunch at her family’s stall.",
+      "d3": "Free morning. Afternoon at the Borghese, tickets held.",
+      "d4": "Train to the Lazio hills. Olive harvest and supper at the farm.",
+      "dayLabel": "Day {{count}}",
+      "more": "Five more days",
+      "deposit": "Deposit",
+      "balance": "Balance due 30 days before departure"
+    },
     "eyebrow": "Easy and Fast",
-    "title": "Book Your Next Trip In 3 Easy Steps",
-    "choose": { "title": "Choose Destination", "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus." },
-    "payment": { "title": "Make Payment", "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus." },
-    "reach": { "title": "Reach Airport on Selected Date", "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus." },
-    "tripToGreece": "Trip To Greece",
-    "greeceMeta": "14-29 June | by Robbin Jones",
-    "peopleGoing": "24 People going",
-    "ongoing": "Ongoing",
     "tripToRome": "Trip to Rome",
-    "completed": "completed"
+    "ongoing": "Ongoing",
+    "completed": "completed",
+    "peopleGoing": "24 People going"
   },
   "testimonials": {
-    "eyebrow": "Testimonials",
-    "title": "What People Say About Us",
-    "prev": "Previous testimonial",
-    "next": "Next testimonial",
-    "mike": { "quote": "On the windows talking painted pasture yet its express parties use. Sure last upon he same as knew next.", "place": "Lahore, Pakistan" },
-    "chris": { "quote": "On the windows talking painted pasture yet its express parties use. Sure last upon he same as knew next.", "place": "CEO of Red Button" }
+    "title": "From people who went",
+    "prev": "Previous story",
+    "next": "Next story",
+    "count": "{{current}} of {{total}}",
+    "mike": {
+      "quote": "We had been to Rome twice and never seen it like this. Giulia’s market morning is the thing we still talk about.",
+      "place": "Rome, September"
+    },
+    "chris": {
+      "quote": "The draft arrived in two days and they changed it three times without a sigh. Kyoto in November, perfectly paced.",
+      "place": "Kyoto, November"
+    },
+    "eyebrow": "Testimonials"
   },
   "subscription": {
-    "text": "Subscribe to get information, latest news and other interesting offers about Jadoo",
+    "title": "A letter from the road, once a month.",
+    "text": "New departures, a city we are scouting, and one good place to eat. No offers, no countdowns.",
     "emailLabel": "Email address",
-    "placeholder": "Your Email",
-    "button": "Subscribe"
+    "placeholder": "you@example.com",
+    "button": "Subscribe",
+    "thanks": "You’re on the list. The next letter goes out at the start of the month."
   },
   "footer": {
-    "tagline": "Book your trip in minute, get full control for much longer.",
+    "tagline": "Small-group trips to four cities, planned by people who know them.",
     "company": "Company",
-    "contact": "Contact",
-    "more": "More",
-    "about": "About",
+    "help": "Help",
+    "follow": "Follow",
+    "about": "About us",
     "careers": "Careers",
-    "mobile": "Mobile",
-    "help": "Help/FAQ",
     "press": "Press",
-    "affiliates": "Affiliates",
-    "airlineFees": "Airline fees",
-    "airline": "Airline",
-    "lowFare": "Low fare tips",
-    "discover": "Discover our app",
-    "rights": "All rights reserved @jadoo.co"
+    "faq": "Questions",
+    "write": "Write to us",
+    "terms": "Booking terms",
+    "privacy": "Privacy",
+    "credits": "Photographs on Unsplash by Braden Collum, Süheyl Burak, Freguesia de Estrela, Daisy Chen, Marialaura Gionfriddo, Ahmet Kahveci and Matthew Foulds.",
+    "rights": "© 2026 Jadoo. A portfolio project."
   },
   "auth": {
     "backHome": "Back to home",
     "or": "or continue with",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "login": {
       "title": "Welcome back",
-      "subtitle": "Sign in to continue planning your next adventure.",
+      "subtitle": "Sign in to see your drafts and saved cities.",
       "email": "Email address",
       "emailPlaceholder": "you@example.com",
       "password": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "remember": "Remember me",
+      "passwordPlaceholder": "Your password",
+      "remember": "Keep me signed in",
       "forgot": "Forgot password?",
-      "submit": "Sign In",
-      "noAccount": "Don't have an account?",
-      "signupLink": "Sign up"
+      "submit": "Log in",
+      "noAccount": "New to Jadoo?",
+      "signupLink": "Create an account"
     },
     "signup": {
       "title": "Create your account",
-      "subtitle": "Join Jadoo and start exploring the world today.",
+      "subtitle": "Save cities, keep your drafts, and hear about new departures first.",
       "name": "Full name",
-      "namePlaceholder": "Jane Traveller",
+      "namePlaceholder": "Amira Haddad",
       "email": "Email address",
       "emailPlaceholder": "you@example.com",
       "password": "Password",
-      "passwordPlaceholder": "Create a password",
+      "passwordPlaceholder": "At least 8 characters",
       "confirm": "Confirm password",
-      "confirmPlaceholder": "Re-enter your password",
-      "terms": "I agree to the Terms of Service and Privacy Policy",
-      "submit": "Create Account",
+      "confirmPlaceholder": "Type it once more",
+      "terms": "I agree to the booking terms and privacy policy",
+      "submit": "Create account",
       "haveAccount": "Already have an account?",
-      "loginLink": "Sign in"
+      "loginLink": "Log in"
     }
   }
 }

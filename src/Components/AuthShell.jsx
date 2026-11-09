@@ -1,11 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'motion/react'
-import { IoArrowBack } from 'react-icons/io5'
+import { ArrowLeft } from 'lucide-react'
 import LanguageSwitcher from './LanguageSwitcher'
+import Wordmark from './Wordmark.jsx'
 import Traveller from '../assets/img/Traveller 1.png'
-
-const PLANE = "M482.3 192c34.2 0 93.7 29 93.7 64s-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.7 0-49-171.6C162.8 10.2 170.5 0 181.1 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"
 
 export default function AuthShell({ title, subtitle, children }) {
   const { t } = useTranslation()
@@ -13,63 +12,44 @@ export default function AuthShell({ title, subtitle, children }) {
   const home = `/${locale}`
 
   return (
-    <div className="min-h-dvh flex bg-white">
-      {/* Brand panel */}
-      <div className="hidden lg:flex w-[45%] relative overflow-hidden bg-gradient-to-br from-[#181E4B] via-[#272c63] to-orange-500 text-white p-12 flex-col justify-between">
-        <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 600 800" fill="none" preserveAspectRatio="xMidYMid slice">
-          <path d="M -20 700 C 200 650, 250 300, 620 120" stroke="#FFD9C2" strokeWidth="2" strokeDasharray="8 12" strokeLinecap="round" />
-          <g transform="translate(540 150) scale(0.08) rotate(-20)">
-            <path transform="translate(-288 -256)" fill="#FFFFFF" d={PLANE} />
-          </g>
-          <circle cx="-20" cy="700" r="6" fill="#FFD9C2" />
-        </svg>
-
-        <Link to={home} dir="ltr" className="relative z-10 text-3xl font-bold tracking-tight w-max">
-          Jadoo<span className="text-orange-400">.</span>
+    <div className="flex min-h-dvh bg-white">
+      <aside className="relative hidden w-[46%] flex-col overflow-hidden bg-cream p-12 lg:flex">
+        <Link to={home} aria-label="Jadoo" className="relative z-10 w-max text-navy">
+          <Wordmark className="text-3xl" />
         </Link>
 
-        <div className="relative z-10">
-          <h2 className="text-4xl font-bold leading-tight max-w-sm">
-            {t('hero.titlePre')} <span className="text-orange-300">{t('hero.titleHighlight')}</span> {t('hero.titlePost')}
-          </h2>
-          <p className="text-white/70 mt-4 max-w-xs">{t('hero.desc')}</p>
-        </div>
+        <p className="relative z-10 mt-16 max-w-md text-[40px] leading-[1.1] font-extrabold tracking-[-0.03em] text-navy">
+          {t('hero.titlePre')} <span className="text-brand">{t('hero.titleHighlight')}</span> {t('hero.titlePost')}
+        </p>
 
-        <img
-          src={Traveller}
-          alt=""
-          className="absolute bottom-0 end-0 w-2/3 max-w-xs opacity-90 pointer-events-none select-none"
-        />
-      </div>
+        <div aria-hidden="true" className="absolute bottom-0 start-[22%] h-[46%] w-[60%] rounded-t-full bg-peach" />
+        <img src={Traveller} alt="" className="absolute bottom-0 start-[14%] w-[66%] max-w-[480px] select-none rtl:-scale-x-100" />
+      </aside>
 
-      {/* Form side */}
-      <div className="flex-1 flex flex-col">
-        <header className="flex items-center justify-between p-6 lg:px-12">
-          <Link to={home} dir="ltr" className="text-2xl font-bold text-[#181E4B] lg:hidden">
-            Jadoo<span className="text-orange-500">.</span>
+      <div className="flex flex-1 flex-col">
+        <header className="flex h-20 items-center justify-between px-5 sm:px-8 lg:px-12">
+          <Link to={home} aria-label="Jadoo" className="text-navy lg:hidden">
+            <Wordmark className="text-[28px]" />
           </Link>
-          <div className="hidden lg:block" />
-          <div className="flex items-center gap-4">
-            <Link
-              to={home}
-              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-orange-500 transition-colors"
-            >
-              <IoArrowBack className="rtl:rotate-180" />
-              {t('auth.backHome')}
-            </Link>
-            <LanguageSwitcher />
-          </div>
+          <Link
+            to={home}
+            className="hidden items-center gap-2 rounded-full px-1 text-[15px] font-medium text-slate transition-colors hover:text-navy lg:inline-flex"
+          >
+            <ArrowLeft className="size-4 rtl:-scale-x-100" />
+            {t('auth.backHome')}
+          </Link>
+          <LanguageSwitcher />
         </header>
 
-        <main className="flex-1 flex items-center justify-center px-6 pb-12">
+        <main className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
           <motion.div
             className="w-full max-w-md"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           >
-            <h1 className="text-3xl font-bold text-[#181E4B]">{title}</h1>
-            <p className="text-gray-500 mt-2 mb-8">{subtitle}</p>
+            <h1 className="text-4xl font-extrabold tracking-[-0.03em] text-navy">{title}</h1>
+            <p className="mt-3 mb-10 text-slate">{subtitle}</p>
             {children}
           </motion.div>
         </main>
