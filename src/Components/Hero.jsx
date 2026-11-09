@@ -43,6 +43,10 @@ const drift = (delay, distance = 6) => ({
   transition: { duration: 5, repeat: Infinity, ease: 'easeInOut', delay },
 })
 
+// Organic corner outline, anchored to the top-right of a 600 x 600 box
+const CORNER =
+  'M600 0 V560 C 528 566 474 514 452 430 C 428 336 344 306 258 276 C 156 240 64 206 34 116 C 22 78 18 38 22 0 Z'
+
 const cardShadow = 'shadow-[0_24px_48px_-24px_rgba(24,30,75,0.45)]'
 
 function Field({ icon: Icon, label, htmlFor, children }) {
@@ -70,6 +74,7 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
   const [travellers, setTravellers] = useState(2)
   const state = intro ? 'hidden' : 'show'
   const rome = TRIPS[0]
+  const rtl = locale === 'ar'
 
   const submit = (e) => {
     e.preventDefault()
@@ -78,8 +83,32 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
 
   return (
     <section id="home" className="relative isolate flex min-h-svh flex-col overflow-hidden pt-20">
-      {/* one tinted plane behind the visual, no gradient */}
-      <div aria-hidden="true" className="absolute inset-y-0 end-0 -z-10 hidden w-[40%] rounded-es-[96px] bg-cream lg:block" />
+      {/* Corner shape: a redrawn take on the original Jadoo corner blob. It stays in the top corner
+          and never sits behind the traveller. Thin orange arcs radiate from the corner inside it. */}
+      <motion.svg
+        aria-hidden="true"
+        viewBox="0 0 600 600"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute end-0 top-0 -z-10 h-[22svh] w-[58vw] sm:h-[24svh] sm:w-[42vw] lg:h-[24svh] lg:w-[36vw] lg:max-w-[620px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: intro ? 0 : 1 }}
+        transition={{ duration: 1.1, ease: EASE_OUT }}
+      >
+        <defs>
+          <clipPath id="hero-corner">
+            <path d={CORNER} />
+          </clipPath>
+        </defs>
+        <g transform={rtl ? 'matrix(-1 0 0 1 600 0)' : undefined}>
+          <path d={CORNER} fill="#fff1e6" />
+          <g clipPath="url(#hero-corner)" fill="none" stroke="#f26a2e" strokeOpacity="0.16">
+            {[170, 290, 410, 530].map((r) => (
+              <circle key={r} cx="600" cy="0" r={r} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+            ))}
+          </g>
+          <circle cx="600" cy="0" r="120" fill="#ffe2cf" />
+        </g>
+      </motion.svg>
 
       <div className="mx-auto flex w-full max-w-[1320px] flex-1 flex-col px-5 pb-5 sm:px-8 lg:px-10 lg:pb-6">
         <div className="grid flex-1 items-center gap-8 pt-8 lg:min-h-0 lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)] lg:gap-6 lg:pt-2">
@@ -157,12 +186,12 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
             </motion.div>
           </div>
 
-          {/* The original traveller on the cream corner panel, with trip details floating around her */}
+          {/* The original traveller on a clear ground; trip details float on the free side */}
           <div className="relative mx-auto aspect-square w-full max-w-[540px] lg:col-span-6 lg:aspect-auto lg:h-full lg:min-h-[320px] lg:max-w-none">
             <motion.img
               src={Traveller}
               alt=""
-              className="absolute bottom-0 start-[10%] w-[84%] select-none object-contain object-bottom rtl:-scale-x-100 lg:h-[97%] lg:w-auto lg:max-w-[88%]"
+              className="absolute bottom-0 start-[8%] w-[84%] select-none object-contain object-bottom rtl:-scale-x-100 lg:start-[6%] lg:h-[84%] lg:w-[88%]"
               initial={{ opacity: 0, y: 40 }}
               animate={intro ? { opacity: 0, y: 40 } : { opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.35, ease: EASE_OUT }}
@@ -171,7 +200,7 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
 
             <motion.span
               aria-hidden="true"
-              className="absolute end-[3%] top-[6%] grid size-12 place-items-center rounded-full bg-navy text-white shadow-[0_16px_32px_-14px_rgba(24,30,75,0.6)]"
+              className="absolute end-[4%] top-[4%] grid size-12 place-items-center rounded-full bg-navy text-white shadow-[0_16px_32px_-14px_rgba(24,30,75,0.6)]"
               variants={pop}
               initial="hidden"
               animate={state}
@@ -181,7 +210,7 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
             </motion.span>
 
             {/* Next departure */}
-            <motion.div variants={pop} initial="hidden" animate={state} custom={1} className="absolute start-0 top-[12%] hidden sm:block">
+            <motion.div variants={pop} initial="hidden" animate={state} custom={1} className="absolute start-0 top-[22%] hidden sm:block">
               <motion.div
                 {...drift(0)}
                 className={`flex w-[232px] items-center gap-3 rounded-2xl border border-white bg-white/90 p-2.5 pe-4 backdrop-blur ${cardShadow}`}
@@ -200,7 +229,7 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
             </motion.div>
 
             {/* Travellers going */}
-            <motion.div variants={pop} initial="hidden" animate={state} custom={2} className="absolute bottom-[14%] start-0">
+            <motion.div variants={pop} initial="hidden" animate={state} custom={2} className="absolute bottom-[10%] start-0">
               <motion.div
                 {...drift(1.2)}
                 className={`flex items-center gap-3 rounded-full border border-white bg-white/90 py-2 ps-2 pe-5 backdrop-blur ${cardShadow}`}
@@ -217,7 +246,7 @@ const Hero = ({ intro, city, onCityChange, onFind }) => {
             </motion.div>
 
             {/* Rating */}
-            <motion.div variants={pop} initial="hidden" animate={state} custom={3} className="absolute end-0 top-[44%] hidden sm:block">
+            <motion.div variants={pop} initial="hidden" animate={state} custom={3} className="absolute end-0 top-[48%] hidden sm:block">
               <motion.div {...drift(0.6, 5)} className={`rounded-2xl border border-white bg-white/90 px-4 py-3 backdrop-blur ${cardShadow}`}>
                 <div className="flex items-center gap-1.5">
                   <Star className="size-4 fill-brand text-brand" />
