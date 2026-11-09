@@ -1,143 +1,127 @@
-import Destination from '../assets/img/Destination icon.png'
-import Payment from '../assets/img/Payment icon.png'
-import Reach from '../assets/img/Reach icon.png'
-import Greece from '../assets/img/cover.jpg'
-import Istanbul from '../assets/img/turkey.png'
-import { FaRegHeart, FaRegMap } from "react-icons/fa6";
-import { FaBuilding } from "react-icons/fa";
-import { IoPaperPlane } from "react-icons/io5";
-import { GiTreeBranch } from "react-icons/gi";
 import { motion } from 'motion/react'
+import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { CreditCard, Heart, MapPin, Plane } from 'lucide-react'
+import SectionHeading from './SectionHeading.jsx'
+import { TRIPS, formatPrice } from '../data/trips.js'
 
-const titleVariants = {
-  hidden: { opacity: 0, x: -40 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-}
+const EASE_OUT = [0.23, 1, 0.32, 1]
+const STEPS = [
+  { key: 'choose', icon: MapPin, tone: 'bg-[#f5b31b]' },
+  { key: 'draft', icon: CreditCard, tone: 'bg-brand' },
+  { key: 'deposit', icon: Plane, tone: 'bg-[#2f8f84]' },
+]
+const DAYS = ['d1', 'd2', 'd3', 'd4']
 
-const stepVariants = {
-  hidden: { opacity: 0, x: -40 },
-  show: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, delay: i * 0.15, ease: "easeOut" }
-  })
+// The one scroll moment: the itinerary writes itself in, line by line.
+const sheet = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } } }
+const line = {
+  hidden: { opacity: 0, x: -12 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE_OUT } },
 }
 
 const Book = () => {
   const { t } = useTranslation()
-  const steps = [
-    { icon: Destination, key: 'choose', color: 'bg-amber-400' },
-    { icon: Payment, key: 'payment', color: 'bg-red-400' },
-    { icon: Reach, key: 'reach', color: 'bg-blue-400' },
-  ]
+  const { locale } = useParams()
+  const rome = TRIPS[0]
 
   return (
-    <section className="grid lg:grid-cols-2 lg:gap-20 container mx-auto pt-24 px-4" id="book">
-      <div>
-        <motion.p
-          className="text-gray-500 font-bold tracking-widest uppercase text-sm mb-2"
-          variants={titleVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {t('book.eyebrow')}
-        </motion.p>
+    <section id="book" className="scroll-mt-20 py-20 lg:py-28">
+      <div className="mx-auto grid max-w-[1320px] items-center gap-16 px-5 sm:px-8 lg:grid-cols-2 lg:gap-12 lg:px-10">
+        <div>
+          <SectionHeading title={t('book.title')} />
 
-        <motion.h2
-          className="text-[#181E4B] text-2xl sm:text-4xl lg:text-5xl font-bold max-w-xl mb-8"
-          variants={titleVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {t('book.title')}
-        </motion.h2>
+          <ol className="mt-12 space-y-4">
+            {STEPS.map(({ key, icon: Icon, tone }) => (
+              <li key={key} className="flex gap-5 rounded-3xl p-4 transition-colors hover:bg-cream">
+                <span className={`grid size-14 shrink-0 place-items-center rounded-2xl text-white ${tone}`}>
+                  <Icon className="size-6 rtl:-scale-x-100" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold text-navy">{t(`book.${key}.title`)}</h3>
+                  <p className="mt-1 max-w-[44ch] leading-relaxed text-slate">{t(`book.${key}.desc`)}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
 
-        {steps.map((step, index) => (
-          <motion.div
-            key={index}
-            className="flex items-start gap-5 my-8"
-            variants={stepVariants}
+        <div className="relative mx-auto w-full max-w-[520px] pb-28">
+          <span aria-hidden="true" className="absolute -end-6 -top-6 size-40 rounded-full bg-peach" />
+
+          <motion.article
+            aria-label={t('book.doc.title')}
+            className="relative overflow-hidden rounded-[32px] bg-white shadow-[0_40px_80px_-40px_rgba(24,30,75,0.5)]"
+            variants={sheet}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
-            custom={index}
+            viewport={{ once: true, amount: 0.15 }}
           >
-            <div className={`shrink-0 w-12 h-12 rounded-2xl ${step.color} flex items-center justify-center shadow-md`}>
-              <img src={step.icon} alt="" className="w-6 h-6" />
+            <div className="relative h-44">
+              <img src={rome.cover} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+              <span className="absolute start-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-navy backdrop-blur">
+                {t('book.doc.meta')}
+              </span>
             </div>
-            <div>
-              <h3 className="text-gray-800 font-bold mb-1">{t(`book.${step.key}.title`)}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{t(`book.${step.key}.desc`)}</p>
+
+            <div className="p-6 sm:p-8">
+              <motion.div variants={line} className="flex items-center justify-between gap-4">
+                <h3 className="text-2xl font-extrabold tracking-tight text-navy">{t('book.doc.title')}</h3>
+                <span aria-hidden="true" className="grid size-10 place-items-center rounded-full bg-peach text-brand">
+                  <Heart className="size-4 fill-current" />
+                </span>
+              </motion.div>
+
+              <ol className="relative mt-6 space-y-4 before:absolute before:inset-y-2 before:start-[7px] before:w-px before:bg-line">
+                {DAYS.map((key, i) => (
+                  <motion.li key={key} variants={line} className="relative flex gap-4">
+                    <span className={`relative mt-1.5 size-[15px] shrink-0 rounded-full border-[3px] border-white ${i === 0 ? 'bg-brand' : 'bg-navy/20'}`} />
+                    <div>
+                      <p className="text-xs font-semibold text-brand">{t('book.doc.dayLabel', { count: i + 1 })}</p>
+                      <p className="text-[15px] text-navy">{t(`book.doc.${key}`)}</p>
+                    </div>
+                  </motion.li>
+                ))}
+              </ol>
+
+              <motion.div variants={line} className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-cream px-4 py-3">
+                <p className="text-sm text-slate">{t('book.doc.balance')}</p>
+                <p className="tabular text-sm font-bold text-navy">
+                  {t('book.doc.deposit')} {formatPrice(400, locale)}
+                </p>
+              </motion.div>
             </div>
-          </motion.div>
-        ))}
-      </div>
+          </motion.article>
 
-      <div className="relative my-12 lg:my-auto mx-auto">
-        <motion.div
-          className="p-5 shadow-xl max-w-xs rounded-3xl bg-white"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.3 }}
-          whileHover={{ y: -8 }}
-        >
-          <div className="overflow-hidden rounded-2xl">
-            <img src={Greece} alt={t('book.tripToGreece')} loading="lazy" decoding="async" className="rounded-2xl w-full" />
-          </div>
-          <h3 className="py-3 text-lg font-bold text-gray-800">{t('book.tripToGreece')}</h3>
-          <p className="text-gray-400 font-medium text-sm">{t('book.greeceMeta')}</p>
-
-          <div className="flex gap-3 py-3">
-            {[GiTreeBranch, FaRegMap, IoPaperPlane].map((Icon, i) => (
-              <div key={i} className="bg-gray-100 p-2 rounded-full text-gray-500">
-                <Icon />
+          {/* Ongoing trip progress, kept from the original design */}
+          <motion.div
+            className="absolute bottom-0 start-0 w-[260px] rounded-3xl bg-white p-4 shadow-[0_30px_60px_-30px_rgba(24,30,75,0.55)] sm:-start-10"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
+          >
+            <div className="flex items-center gap-3">
+              <img src={rome.photo} alt="" loading="lazy" className="size-12 rounded-full object-cover" />
+              <div>
+                <p className="text-xs text-slate">{t('book.ongoing')}</p>
+                <p className="font-bold text-navy">{t('book.tripToRome')}</p>
               </div>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-between">
-            <p className="text-gray-500 font-medium flex gap-2 items-center text-sm">
-              <FaBuilding className="text-gray-400" />
-              {t('book.peopleGoing')}
-            </p>
-            <FaRegHeart className="size-5 text-red-500 cursor-pointer" />
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="mt-5 lg:mt-0 lg:absolute py-3 pl-3 pr-8 rounded-2xl shadow-xl bg-white bottom-6 lg:-left-16"
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <div className="flex gap-3 items-center">
-            <img src={Istanbul} alt="" loading="lazy" decoding="async" className="rounded-full w-12 h-12 object-cover" />
-            <div>
-              <h4 className="text-gray-400 font-medium text-sm">{t('book.ongoing')}</h4>
-              <h5 className="font-bold text-gray-800">{t('book.tripToRome')}</h5>
             </div>
-          </div>
-
-          <div className="w-40 ml-15 mt-2">
-            <p className="font-semibold text-sm mb-1">
-              <span className="text-orange-500">40%</span> {t('book.completed')}
+            <p className="mt-3 text-sm font-semibold text-navy">
+              <span className="text-brand">40%</span> {t('book.completed')}
             </p>
-            <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-cream">
               <motion.div
-                className="h-2 bg-orange-500 rounded-full"
-                initial={{ width: 0 }}
-                whileInView={{ width: "40%" }}
-                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                className="h-full origin-left rounded-full bg-brand rtl:origin-right"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 0.4 }}
                 viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
               />
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

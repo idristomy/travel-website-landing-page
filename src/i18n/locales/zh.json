@@ -1,12 +1,22 @@
 {
+  "meta": {
+    "title": "Jadoo — 罗马、伊斯坦布尔、里斯本与京都的小团旅行"
+  },
   "nav": {
-    "home": "首页",
-    "services": "服务",
+    "skip": "跳到正文",
     "destinations": "目的地",
-    "booking": "预订",
-    "testimonials": "客户评价",
+    "services": "我们安排什么",
+    "book": "如何成行",
+    "testimonials": "旅人",
     "login": "登录",
-    "signup": "注册"
+    "signup": "注册",
+    "menu": "打开菜单",
+    "close": "关闭菜单",
+    "language": "切换语言"
+  },
+  "intro": {
+    "skip": "跳过开场",
+    "line": "由当地人规划的小团旅行"
   },
   "hero": {
     "eyebrow": "全球最佳目的地",
@@ -15,99 +25,177 @@
     "titlePost": "开启全新而充实的生活。",
     "desc": "在专家建议、旅行贴士、目的地资讯与灵感的帮助下，规划并预订你的完美旅程。",
     "findOut": "了解更多",
-    "playDemo": "观看演示"
+    "playDemo": "观看演示",
+    "index": "选择城市",
+    "finder": {
+      "label": "查找行程",
+      "where": "目的地",
+      "when": "日期",
+      "who": "人数",
+      "anywhere": "任意目的地",
+      "submit": "搜索",
+      "fewer": "减少人数",
+      "more": "增加人数"
+    },
+    "nextTrip": "下一次出发",
+    "going": "24 位旅人同行",
+    "rating": "深受旅人喜爱"
   },
-  "services": {
-    "eyebrow": "类别",
-    "title": "我们提供最佳服务",
-    "weather": { "title": "天气预测", "desc": "提供精准的天气信息，助你自信地规划行程。" },
-    "flights": { "title": "优选航班", "desc": "为你精选价格与时间最合适的航班。" },
-    "events": { "title": "本地活动", "desc": "发现目的地精彩的当地活动与体验。" },
-    "customization": { "title": "个性定制", "desc": "为你量身打造符合需求与喜好的旅行体验。" }
+  "cities": {
+    "rome": {
+      "name": "罗马",
+      "country": "意大利",
+      "blurb": "九天，往返于特拉斯提弗列、泰斯塔乔与拉齐奥山间的一座家庭农场。"
+    },
+    "istanbul": {
+      "name": "伊斯坦布尔",
+      "country": "土耳其",
+      "blurb": "早餐前坐渡轮，午饭后逛香料市场，走遍博斯普鲁斯海峡两岸。"
+    },
+    "lisbon": {
+      "name": "里斯本",
+      "country": "葡萄牙",
+      "blurb": "清晨的 28 路电车，阿尔法玛铺满瓷砖的庭院，再慢慢去辛特拉待上一天。"
+    },
+    "kyoto": {
+      "name": "京都",
+      "country": "日本",
+      "blurb": "清晨的寺院，安静的旅馆之夜，再沿着古老的驿道步行一整天。"
+    }
   },
   "destinations": {
-    "eyebrow": "热销推荐",
-    "title": "热门目的地",
-    "daysTrip": "天行程",
-    "explore": "探索",
-    "save": "收藏目的地",
-    "unsave": "取消收藏",
-    "rome": { "city": "罗马", "country": "意大利" },
-    "london": { "city": "伦敦", "country": "英国" },
-    "europe": { "city": "全欧洲", "country": "多国" }
+    "title": "四座城市，一条街一条街地熟悉",
+    "intro": "每一趟旅行都人少、节奏慢，并按你出发的季节来安排。",
+    "days": "{{count}} 天",
+    "group": "每团 {{count}} 人",
+    "from": "{{price}} 起",
+    "view": "规划这趟行程",
+    "save": "收藏{{city}}",
+    "unsave": "取消收藏{{city}}",
+    "picked": "你的选择",
+    "eyebrow": "热销推荐"
+  },
+  "services": {
+    "title": "我们为你打理的事",
+    "intro": "你只需带上好奇心，那些最耗费假期的琐事交给我们。",
+    "flights": {
+      "title": "合理的航班",
+      "desc": "能直飞就直飞，不能直飞就选靠谱的中转，座位在你开口前就已选好。"
+    },
+    "rooms": {
+      "title": "有理由的住处",
+      "desc": "我们亲自住过的小酒店和民宿，离你想看的地方都不远。"
+    },
+    "hosts": {
+      "title": "当地向导",
+      "desc": "罗马的历史学者，伊斯坦布尔渡轮船长的儿子：带你看他们自己的城市，而不是背稿子。"
+    },
+    "flex": {
+      "title": "可以变通的计划",
+      "desc": "行程里留有自由日。第三天想改主意，我们就和你一起改。"
+    },
+    "eyebrow": "类别"
   },
   "book": {
+    "title": "一趟旅行是怎样成形的",
+    "choose": {
+      "title": "大致告诉我们去哪里、什么时候",
+      "desc": "选一座城市和一个月份。日期不确定也没关系，其余的在一通简短的电话里聊。"
+    },
+    "draft": {
+      "title": "阅读逐日行程草案",
+      "desc": "两个工作日内，你会收到一份写明住宿、向导和价格的书面行程。"
+    },
+    "deposit": {
+      "title": "支付定金，然后收拾行李",
+      "desc": "定金为你保留名额，尾款在出发前三十天支付。"
+    },
+    "doc": {
+      "title": "罗马，九天",
+      "meta": "第二版草案，致 Amira 与 Tom",
+      "d1": "抵达菲乌米奇诺机场。晚八点在特拉斯提弗列晚餐。",
+      "d2": "和 Giulia 一起逛泰斯塔乔市场，在她家的摊位吃午饭。",
+      "d3": "上午自由活动。下午参观博尔盖塞美术馆，门票已预留。",
+      "d4": "乘火车前往拉齐奥山区。采摘橄榄，在农场吃晚饭。",
+      "dayLabel": "第 {{count}} 天",
+      "more": "还有五天",
+      "deposit": "定金",
+      "balance": "尾款于出发前 30 天支付"
+    },
     "eyebrow": "简单快捷",
-    "title": "三个简单步骤预订你的下一趟旅程",
-    "choose": { "title": "选择目的地", "desc": "从全球数百个目的地中，挑选最适合你下一趟旅程的那一个。" },
-    "payment": { "title": "完成支付", "desc": "通过多种安全可靠的支付方式，轻松完成付款。" },
-    "reach": { "title": "按时抵达机场", "desc": "领取你的机票与所有行程详情，轻松开启旅程。" },
-    "tripToGreece": "希腊之旅",
-    "greeceMeta": "6月14-29日 | 由 Robbin Jones 带队",
-    "peopleGoing": "24 人同行",
-    "ongoing": "进行中",
     "tripToRome": "罗马之旅",
-    "completed": "已完成"
+    "ongoing": "进行中",
+    "completed": "已完成",
+    "peopleGoing": "24 人同行"
   },
   "testimonials": {
-    "eyebrow": "客户评价",
-    "title": "客户对我们的评价",
-    "prev": "上一条评价",
-    "next": "下一条评价",
-    "mike": { "quote": "从头到尾都是一次美妙的旅行体验，一切都安排得井井有条，我一定会再次预订。", "place": "巴基斯坦，拉合尔" },
-    "chris": { "quote": "从头到尾都是一次美妙的旅行体验，一切都安排得井井有条，我一定会再次预订。", "place": "Red Button 首席执行官" }
+    "title": "来自同行旅人",
+    "prev": "上一则",
+    "next": "下一则",
+    "count": "{{current}} / {{total}}",
+    "mike": {
+      "quote": "我们之前去过两次罗马，却从没这样看过它。和 Giulia 逛市场的那个早上，我们至今还常常提起。",
+      "place": "罗马，九月"
+    },
+    "chris": {
+      "quote": "草案两天就到了，改了三次也毫无怨言。十一月的京都，节奏刚刚好。",
+      "place": "京都，十一月"
+    },
+    "eyebrow": "客户评价"
   },
   "subscription": {
-    "text": "订阅以获取 Jadoo 的资讯、最新动态及其他精彩优惠",
+    "title": "每月一封，来自路上的信。",
+    "text": "新的出发日期、我们正在考察的城市，以及一家值得去的餐馆。没有促销，也没有倒计时。",
     "emailLabel": "电子邮箱",
-    "placeholder": "你的邮箱",
-    "button": "订阅"
+    "placeholder": "you@example.com",
+    "button": "订阅",
+    "thanks": "已加入名单。下一封信会在月初寄出。"
   },
   "footer": {
-    "tagline": "一分钟预订行程，长久尽在掌控。",
+    "tagline": "前往四座城市的小团旅行，由真正熟悉它们的人规划。",
     "company": "公司",
-    "contact": "联系我们",
-    "more": "更多",
+    "help": "帮助",
+    "follow": "关注",
     "about": "关于我们",
-    "careers": "招聘",
-    "mobile": "手机应用",
-    "help": "帮助/常见问题",
-    "press": "媒体报道",
-    "affiliates": "合作伙伴",
-    "airlineFees": "航空费用",
-    "airline": "航空公司",
-    "lowFare": "低价贴士",
-    "discover": "下载我们的应用",
-    "rights": "版权所有 @jadoo.co"
+    "careers": "加入我们",
+    "press": "媒体",
+    "faq": "常见问题",
+    "write": "写信给我们",
+    "terms": "预订条款",
+    "privacy": "隐私",
+    "credits": "照片来自 Unsplash，摄影：Braden Collum、Süheyl Burak、Freguesia de Estrela、Daisy Chen、Marialaura Gionfriddo、Ahmet Kahveci、Matthew Foulds。",
+    "rights": "© 2026 Jadoo。作品集项目。"
   },
   "auth": {
     "backHome": "返回首页",
     "or": "或使用以下方式继续",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
     "login": {
       "title": "欢迎回来",
-      "subtitle": "登录以继续规划你的下一场冒险。",
+      "subtitle": "登录查看你的行程草案和收藏的城市。",
       "email": "电子邮箱",
       "emailPlaceholder": "you@example.com",
       "password": "密码",
-      "passwordPlaceholder": "请输入密码",
-      "remember": "记住我",
+      "passwordPlaceholder": "你的密码",
+      "remember": "保持登录",
       "forgot": "忘记密码？",
       "submit": "登录",
-      "noAccount": "还没有账户？",
-      "signupLink": "注册"
+      "noAccount": "第一次来 Jadoo？",
+      "signupLink": "创建账户"
     },
     "signup": {
       "title": "创建你的账户",
-      "subtitle": "加入 Jadoo，今天就开始探索世界。",
+      "subtitle": "收藏城市，保存行程草案，第一时间获知新的出发日期。",
       "name": "全名",
-      "namePlaceholder": "张三",
+      "namePlaceholder": "林晓",
       "email": "电子邮箱",
       "emailPlaceholder": "you@example.com",
       "password": "密码",
-      "passwordPlaceholder": "创建密码",
+      "passwordPlaceholder": "至少 8 个字符",
       "confirm": "确认密码",
-      "confirmPlaceholder": "请再次输入密码",
-      "terms": "我同意服务条款与隐私政策",
+      "confirmPlaceholder": "请再输入一次",
+      "terms": "我同意预订条款与隐私政策",
       "submit": "创建账户",
       "haveAccount": "已经有账户？",
       "loginLink": "登录"

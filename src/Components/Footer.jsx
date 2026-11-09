@@ -1,165 +1,70 @@
-import { TiSocialFacebook } from "react-icons/ti";
-import { FaTwitter, FaInstagram } from "react-icons/fa";
-import PlayStore from '../assets/img/Play Store.png'
-import GooglePlay from '../assets/img/Google Play.png'
-import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
+import { FaFacebookF, FaInstagram, FaXTwitter } from 'react-icons/fa6'
+import Wordmark from './Wordmark.jsx'
 
-const FooterVariants = {
-    hidden: {
-        y: 30,
-        opacity: 0
-    },
-    show: (i) =>  ({
-        opacity: 1,
-         y: 0 ,
-         transition: {
-            duration: 0.5,
-            delay: i * 0.2,
-            ease: "easeOut"
-         }
-    })
-}
+const COLUMNS = [
+  { title: 'company', links: ['about', 'careers', 'press'] },
+  { title: 'help', links: ['faq', 'write', 'terms', 'privacy'] },
+]
 
+const SOCIAL = [
+  { label: 'Instagram', href: 'https://www.instagram.com/', icon: FaInstagram },
+  { label: 'Facebook', href: 'https://www.facebook.com/', icon: FaFacebookF },
+  { label: 'X', href: 'https://x.com/', icon: FaXTwitter },
+]
 
 const Footer = () => {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    const footerColumns = [
-        { title: 'company', links: ['about', 'careers', 'mobile'] },
-        { title: 'contact', links: ['help', 'press', 'affiliates'] },
-        { title: 'more', links: ['airlineFees', 'airline', 'lowFare'] },
-    ]
+  return (
+    <footer className="border-t border-line bg-white">
+      <div className="mx-auto max-w-[1320px] px-5 pt-16 pb-10 sm:px-8 lg:px-10">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
+            <Wordmark className="text-4xl text-navy" />
+            <p className="mt-5 max-w-[34ch] text-slate">{t('footer.tagline')}</p>
+            <ul className="mt-6 flex gap-3">
+              {SOCIAL.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="press grid size-11 place-items-center rounded-full border border-line text-navy hover:border-brand hover:bg-brand hover:text-white"
+                  >
+                    <Icon className="size-4" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-    return(
-        
-        <footer className="relative overflow-hidden">
+          <div className="grid grid-cols-2 gap-10 lg:col-span-7 lg:grid-cols-3">
+            {COLUMNS.map((col) => (
+              <nav key={col.title} aria-label={t(`footer.${col.title}`)}>
+                <h2 className="text-base font-bold text-navy">{t(`footer.${col.title}`)}</h2>
+                <ul className="mt-4 space-y-1">
+                  {col.links.map((link) => (
+                    <li key={link}>
+                      <a href="#" className="inline-block py-1.5 text-slate transition-colors hover:text-brand">
+                        {t(`footer.${link}`)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+        </div>
 
-            <div className="container mx-auto py-10 px-4 lg:px-0">
-
-                <div className="grid grid-cols-1  xl:grid-cols-10 gap-10">
-
-                    {/* Logo */}
-
-                    <motion.div className="flex flex-col gap-5  xl:col-span-2"
-                        initial= {{
-                            opacity: 0,
-                            y: 30
-                        }}
-                        whileInView={{
-                            opacity : 1,
-                            y: 0
-                        }}
-                        transition={{
-                            duration: 0.4,
-                            ease: 'linear'
-                        }}
-                        viewport={{
-                            once: true, amount: 0.8
-                        }}
-                    >
-                        <p dir="ltr" className="text-4xl font-semibold w-max">Jadoo.</p>
-                        <p className="text-sm text-gray-500 font-semibold">{t('footer.tagline')}</p>
-                    </motion.div>
-
-                    {/* Footer Links */}
-
-                    <div className="xl:col-span-6 xl:mx-auto">
-
-                        <div className="grid grid-cols-3  lg:gap-30">
-                            {
-                                footerColumns.map((col, index) =>(
-                                    <motion.div key={col.title} className="flex flex-col gap-5 "
-                                        variants={FooterVariants}
-                                        initial= "hidden"
-                                        whileInView= 'show'
-                                        custom={index}
-                                        viewport={{
-                                            once: true,
-                                            amount: 1
-                                        }}
-                                    >
-                                        <h5 className="font-bold text-lg">{t(`footer.${col.title}`)}</h5>
-                                        <ul className="space-y-2">
-                                            {
-                                                col.links.map((link) =>(
-                                                    <li key={link}>
-                                                        <a href="#" className="text-sm text-gray-500 font-semibold hover:text-orange-500 transition-colors">{t(`footer.${link}`)}</a>
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </motion.div>
-                                ))
-                            }
-                        </div>
-                    </div>
-
-                    {/* Social Media Links */}
-
-                    <motion.div className="xl:col-span-2"
-                        initial= {{
-                                opacity: 0,
-                                y: 30
-                            }}
-                            whileInView={{
-                                opacity : 1,
-                                y: 0
-                            }}
-                            transition={{
-                                duration: 0.4,
-                                delay: 0.8,
-                                ease: 'linear'
-                            }}
-                            viewport={{
-                                once: true, amount: 0.8
-                            }}
-                    >
-                        <div className="flex items-center gap-5">
-                            <motion.a href="#" aria-label="Facebook" className="rounded-full shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-                                whileHover={{ scale: 1.2 }}
-                            >
-                                <TiSocialFacebook className="size-9"/>
-                            </motion.a>
-                            <motion.a href="#" aria-label="Instagram" className="rounded-full shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-                                whileHover={{ scale: 1.2 }}
-                            >
-                                <FaInstagram className="p-2 size-10 rounded-full shadow-md"/>
-                            </motion.a>
-                            <motion.a href="#" aria-label="Twitter" className="rounded-full shadow-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-                                whileHover={{ scale: 1.2 }}
-                            >
-                                <FaTwitter className="p-2 size-10 rounded-full shadow-md"/>
-                            </motion.a>
-                        </div>
-                        <h5 className="font-bold text-gray-700 text-lg pt-3 pl-3">{t('footer.discover')}</h5>
-                        <div className="flex gap-2 pt-5">
-                            <motion.img src={PlayStore} alt="" 
-                                className="cursor-pointer"
-                                whileHover={{
-                                    scale: 1.2
-                                }}
-                            />
-                            <motion.img src={GooglePlay} alt="" 
-                                className="cursor-pointer"
-                                whileHover={{
-                                    scale: 1.2
-                                }}
-                            />
-                        </div>
-                    </motion.div>
-
-                </div>
-                <div className="">
-
-                    <div className="mt-5 pt-5 flex justify-center items-center border-t border-gray-300">
-                        <p>{t('footer.rights')}</p>
-                    </div>
-                </div>
-            </div>
-
-        </footer>
-    )
+        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-6 text-sm text-slate lg:flex-row lg:items-baseline lg:justify-between lg:gap-10">
+          <p>{t('footer.rights')}</p>
+          <p className="max-w-[90ch] text-xs lg:text-end">{t('footer.credits')}</p>
+        </div>
+      </div>
+    </footer>
+  )
 }
 
 export default Footer

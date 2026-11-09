@@ -1,89 +1,87 @@
-import icon from '../assets/img/Subscribe icon.png';
-import Circles from '../assets/img/Circles.png';
-import Stars from '../assets/img/Stars.png';
-import { motion } from 'motion/react';
-import { useTranslation } from 'react-i18next';
-
-const BoxVariants = {
-  hidden: {
-    opacity: 0,
-    y: 20
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1.5,
-      ease: "easeInOut"
-    }
-  }
-};
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
+import { CheckCircle2, Mail, Send } from 'lucide-react'
 
 const Subscribtion = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
+  const [sent, setSent] = useState(false)
+
   return (
-    <motion.div
-      className="relative overflow-hidden"
-      variants={BoxVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.6 }}
-    >
-      <img
-        src={Stars}
-        alt=""
-        className="absolute bottom-0 right-5 -z-10 pointer-events-none"
-      />
-      <div className="container mx-auto flex items-center justify-center py-20 px-4 ">
-        <div className="relative bg-fuchsia-100 text-center w-full py-10 md:py-20 rounded-tl-[80px] rounded-b-xl z-10 ">
-          {/* Background graphics */}
-          <img
-            src={Circles}
-            alt=""
-            className="absolute bottom-0 translate-x-10 w-40 md:w-60 opacity-30 pointer-events-none"
-          />
-          <img
-            src={Circles}
-            alt=""
-            className="absolute top-8 right-0 rotate-[270deg] translate-x-7 w-40 md:w-60 opacity-30 pointer-events-none"
-          />
-          <img
-            src={icon}
-            alt=""
-            className="absolute w-10 lg:w-20 top-0 right-0 translate-x-1/3 -translate-y-1/3 z-20"
-          />
+    <section aria-labelledby="letter-title" className="py-20 lg:py-28">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10">
+        <div className="relative isolate overflow-hidden rounded-[40px] bg-navy px-6 py-16 text-center sm:px-12 lg:py-20">
+          {/* concentric rings: a radar sweep over the destinations */}
+          <div aria-hidden="true" className="absolute -end-40 -top-40 -z-10">
+            {[520, 400, 280].map((s) => (
+              <span
+                key={s}
+                className="absolute end-0 top-0 rounded-full border border-white/[0.07]"
+                style={{ width: s, height: s, transform: `translate(${(520 - s) / -2}px, ${(520 - s) / 2}px)` }}
+              />
+            ))}
+          </div>
+          <span aria-hidden="true" className="absolute -bottom-24 -start-24 -z-10 size-72 rounded-full bg-brand/15" />
 
-          {/* Heading */}
-          <h2 className="text-xl lg:text-3xl md:text-2xl font-semibold text-gray-700 mx-auto lg:w-4/5 z-20 relative">
-            {t('subscription.text')}
-          </h2>
-
-          {/* Form */}
-          <form
-            className="flex flex-col md:flex-row items-center justify-center gap-5 pt-10 md:pt-20 z-20 relative"
-            onSubmit={(e) => e.preventDefault()}
+          <span className="mx-auto grid size-16 place-items-center rounded-2xl bg-brand text-white shadow-[0_20px_40px_-16px_rgba(242,106,46,0.8)]">
+            <Mail className="size-7" />
+          </span>
+          <h2
+            id="letter-title"
+            className="mx-auto mt-8 max-w-2xl text-[clamp(1.9rem,1.2rem+2.2vw,3rem)] leading-[1.12] font-extrabold tracking-[-0.03em] text-white"
           >
-            <label htmlFor="newsletter-email" className="sr-only">{t('subscription.emailLabel')}</label>
-            <input
-              id="newsletter-email"
-              type="email"
-              name="email"
-              autoComplete="email"
-              className="bg-white p-3 w-[250px] md:w-[300px] rounded-lg border border-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400"
-              placeholder={t('subscription.placeholder')}
-              required
-            />
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-[#FF946D] to-[#FF7D68] text-white font-semibold py-3 px-5 rounded-xl hover:opacity-90 transition-opacity duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2"
-            >
-              {t('subscription.button')}
-            </button>
-          </form>
+            {t('subscription.title')}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-white/70">{t('subscription.text')}</p>
+
+          <div className="mx-auto mt-10 max-w-xl" aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              {sent ? (
+                <motion.p
+                  key="thanks"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-3 font-medium text-white"
+                  initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                >
+                  <CheckCircle2 className="size-5 text-brand" />
+                  {t('subscription.thanks')}
+                </motion.p>
+              ) : (
+                <motion.form
+                  key="form"
+                  className="flex flex-col gap-2 rounded-[28px] bg-white p-2 sm:flex-row sm:rounded-full"
+                  exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.12 } }}
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    setSent(true)
+                  }}
+                >
+                  <label htmlFor="newsletter-email" className="sr-only">{t('subscription.emailLabel')}</label>
+                  <input
+                    id="newsletter-email"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    placeholder={t('subscription.placeholder')}
+                    className="min-w-0 flex-1 rounded-full bg-transparent px-5 py-3 text-base text-navy placeholder:text-slate/70 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="press inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-brand px-7 font-semibold text-white hover:bg-brand-deep"
+                  >
+                    {t('subscription.button')}
+                    <Send className="size-4 rtl:-scale-x-100" />
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-    </motion.div>
-  );
-};
+    </section>
+  )
+}
 
-export default Subscribtion;
+export default Subscribtion

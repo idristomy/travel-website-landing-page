@@ -1,127 +1,88 @@
-import profile from '../assets/img/profile.png';
-import { motion } from 'motion/react';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { useState } from 'react'
+import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, Quote, Star } from 'lucide-react'
+import SectionHeading from './SectionHeading.jsx'
 
-const cardVariants = {
-  top: {
-    x: 0, y: 0, scale: 1, opacity: 1, zIndex: 2,
-    transition: { duration: 0.5, ease: "easeInOut" },
-  },
-  bottom: {
-    x: 40, y: 50, scale: 0.9, opacity: 0.5, zIndex: 1,
-    transition: { duration: 0.5, ease: "easeInOut" },
-  },
-};
-
-const titleVariants = {
-  hidden: { opacity: 0, x: -40 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const testimonialData = [
-  { img: profile, key: 'mike', name: 'Mike Taylor' },
-  { img: profile, key: 'chris', name: 'Chris Thomas' },
-];
+const STORIES = [
+  { key: 'mike', name: 'Mike Taylor', initials: 'MT', tone: 'bg-brand' },
+  { key: 'chris', name: 'Chris Thomas', initials: 'CT', tone: 'bg-[#2f8f84]' },
+]
 
 const Testimonials = () => {
-  const { t } = useTranslation();
-  const [topIndex, setTopIndex] = useState(0);
+  const { t } = useTranslation()
+  const { locale } = useParams()
+  const rtl = locale === 'ar'
+  const [index, setIndex] = useState(0)
+  const go = (step) => setIndex((i) => (i + step + STORIES.length) % STORIES.length)
 
-  const handleNext = () =>
-    setTopIndex((prev) => (prev + 1) % testimonialData.length);
-
-  const handlePrev = () =>
-    setTopIndex((prev) => (prev === 0 ? testimonialData.length - 1 : prev - 1));
+  const control =
+    'press grid size-12 cursor-pointer place-items-center rounded-full border border-navy/15 bg-white text-navy hover:border-brand hover:bg-brand hover:text-white'
 
   return (
-    <section className="container mx-auto py-20 px-4 grid lg:grid-cols-2 gap-10 items-center" id="testimonials">
-      <div>
-        <motion.p
-          className="text-gray-500 font-bold tracking-widest uppercase text-sm mb-2"
-          variants={titleVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {t('testimonials.eyebrow')}
-        </motion.p>
+    <section id="testimonials" className="scroll-mt-20 bg-cream py-20 lg:py-28">
+      <div className="mx-auto grid max-w-[1320px] items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+        <div>
+          <SectionHeading title={t('testimonials.title')} />
 
-        <motion.h2
-          className="text-[#181E4B] text-2xl sm:text-4xl lg:text-5xl font-bold"
-          variants={titleVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {t('testimonials.title')}
-        </motion.h2>
-
-        <div className="flex gap-3 mt-12">
-          {testimonialData.map((_, index) => (
-            <span
-              key={index}
-              className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                index === topIndex ? 'bg-[#181E4B]' : 'bg-[#181E4B]/30'
-              }`}
-            />
-          ))}
+          <div className="mt-10 flex items-center gap-3">
+            <button type="button" onClick={() => go(-1)} aria-label={t('testimonials.prev')} className={control}>
+              <ArrowLeft className="size-5 rtl:-scale-x-100" />
+            </button>
+            <button type="button" onClick={() => go(1)} aria-label={t('testimonials.next')} className={control}>
+              <ArrowRight className="size-5 rtl:-scale-x-100" />
+            </button>
+            <div className="ms-3 flex gap-2" aria-live="polite">
+              {STORIES.map((s, i) => (
+                <span key={s.key} className={`h-2 rounded-full transition-all duration-300 ${i === index ? 'w-8 bg-brand' : 'w-2 bg-navy/20'}`} />
+              ))}
+              <span className="sr-only">{t('testimonials.count', { current: index + 1, total: STORIES.length })}</span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="relative flex items-center justify-center min-h-[320px]">
-        {testimonialData.map((item, index) => {
-          const isTop = index === topIndex;
-          return (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              initial={false}
-              animate={isTop ? 'top' : 'bottom'}
-              className="absolute bg-white shadow-xl rounded-2xl p-8 w-full max-w-md border border-gray-100"
-            >
-              <p className="text-[#5E6282] mb-6 text-base leading-relaxed">
-                {t(`testimonials.${item.key}.quote`)}
-              </p>
-              <div className="flex items-center gap-4">
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="rounded-full w-14 h-14 object-cover"
-                />
-                <div>
-                  <h4 className="text-[#181E4B] font-bold">{item.name}</h4>
-                  <h5 className="text-[#5E6282] text-sm">{t(`testimonials.${item.key}.place`)}</h5>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
-
-        <div className="absolute -bottom-12 right-0 flex sm:top-1/2 sm:-translate-y-1/2 sm:flex-col gap-4">
-          <motion.button
-            onClick={handlePrev}
-            className="p-3 rounded-full bg-white shadow-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-colors"
-            whileTap={{ scale: 0.9 }}
-            aria-label={t('testimonials.prev')}
-          >
-            <IoIosArrowUp className="text-xl" />
-          </motion.button>
-          <motion.button
-            onClick={handleNext}
-            className="p-3 rounded-full bg-white shadow-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-colors"
-            whileTap={{ scale: 0.9 }}
-            aria-label={t('testimonials.next')}
-          >
-            <IoIosArrowDown className="text-xl" />
-          </motion.button>
+        <div className="relative min-h-[340px] sm:min-h-[320px]">
+          {STORIES.map((story, i) => {
+            const top = i === index
+            return (
+              <motion.figure
+                key={story.key}
+                aria-hidden={!top}
+                className="absolute inset-x-0 top-0 rounded-[32px] bg-white p-8 shadow-[0_40px_80px_-40px_rgba(24,30,75,0.45)] sm:p-10"
+                initial={false}
+                animate={
+                  top
+                    ? { x: 0, y: 0, scale: 1, opacity: 1, zIndex: 2 }
+                    : { x: rtl ? -36 : 36, y: 40, scale: 0.92, opacity: 0.55, zIndex: 1 }
+                }
+                transition={{ duration: 0.55, ease: [0.77, 0, 0.175, 1] }}
+              >
+                <Quote className="size-9 fill-brand text-brand rtl:-scale-x-100" />
+                <blockquote className="mt-5 text-xl leading-relaxed font-medium text-navy">
+                  <p>{t(`testimonials.${story.key}.quote`)}</p>
+                </blockquote>
+                <figcaption className="mt-8 flex items-center gap-4">
+                  <span className={`grid size-12 place-items-center rounded-full text-sm font-bold text-white ${story.tone}`}>
+                    {story.initials}
+                  </span>
+                  <div className="flex-1">
+                    <p className="font-bold text-navy">{story.name}</p>
+                    <p className="text-sm text-slate">{t(`testimonials.${story.key}.place`)}</p>
+                  </div>
+                  <div className="flex gap-0.5" aria-hidden="true">
+                    {Array.from({ length: 5 }, (_, s) => (
+                      <Star key={s} className="size-4 fill-[#f5b31b] text-[#f5b31b]" />
+                    ))}
+                  </div>
+                </figcaption>
+              </motion.figure>
+            )
+          })}
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Testimonials;
+export default Testimonials
